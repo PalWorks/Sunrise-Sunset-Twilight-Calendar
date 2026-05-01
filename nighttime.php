@@ -277,7 +277,7 @@ while ( strtotime($date) <= strtotime($year-1 . '-12-31') || strtotime($date) ==
 BEGIN:VEVENT<?php echo "\r\n"; ?>
 CREATED:<?php echo iso_date_format(strtotime($date)) . "\r\n"; ?>
 DTSTART:<?php echo iso_date_format($sunset) . "\r\n"; ?>
-DTEND:<?php echo iso_date_format($next_day_sunrise) . "\r\n"; ?>
+DTEND:<?php echo iso_date_format($sunset + 3600) . "\r\n"; ?>
 DTSTAMP:<?php echo iso_date_format(time()) . "\r\n"; ?>
 LAST-MODIFIED:<?php echo iso_date_format(filemtime(__FILE__)) . "\r\n"; ?>
 UID:<?php echo md5(uniqid(mt_rand(), true)) . "@gearside.com" . "\r\n"; ?>
@@ -289,8 +289,7 @@ DESCRIPTION:<?php echo escape_string(
 	'[Last Updated: ' . date('l, F j, Y, g:ia') . '] \\n\\n' .
 	"Calendar by Gearside.com") . "\r\n"; //This is for additional information ?>
 URL;VALUE=URI:<?php echo escape_string('http://gearside.com/calendars/nighttime.ics') . "\r\n"; ?>
-SUMMARY:<?php echo $weather_icon . ' ' . escape_string($hours . 'h ' . $minutes . 'm (' . round($percent, 1) . '%)' . $weather_forecast_summary) . "\r\n"; //Shows up in the title of the event ?>
-RRULE:FREQ=YEARLY;COUNT=3<?php echo "\r\n"; ?>
+SUMMARY:<?php echo escape_string(date('H:i', $sunset)) . "\r\n"; //Shows up in the title of the event ?>
 END:VEVENT<?php echo "\r\n"; ?>
 <?php
 	if ( $date == $year-1 . '-02-28' && date('L', strtotime($year . '-02-29')) ){ //If is Feb 28th and if tomorrow is a leap day
