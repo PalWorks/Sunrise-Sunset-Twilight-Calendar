@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunset Calendar</title>
+  <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.11/index.global.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto 20px;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    #calendar-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+    }
+
+    /* FullCalendar theme overrides */
+    .fc {
+      --fc-border-color: #334155;
+      --fc-today-bg-color: rgba(251, 191, 36, 0.08);
+      --fc-page-bg-color: #1e293b;
+      --fc-neutral-bg-color: #1e293b;
+      --fc-list-event-hover-bg-color: #334155;
+    }
+
+    .fc .fc-toolbar-title { color: #f1f5f9; font-size: 1.1rem; }
+    .fc .fc-button { background: #334155; border-color: #475569; color: #cbd5e1; font-size: 0.8rem; }
+    .fc .fc-button:hover { background: #475569; border-color: #64748b; }
+    .fc .fc-button-primary:not(:disabled).fc-button-active,
+    .fc .fc-button-primary:not(:disabled):active { background: #3b82f6; border-color: #3b82f6; }
+    .fc .fc-col-header-cell-cushion { color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .fc .fc-daygrid-day-number { color: #94a3b8; font-size: 0.85rem; }
+    .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number { color: #fbbf24; font-weight: 700; }
+    .fc-theme-standard td, .fc-theme-standard th { border-color: #334155; }
+    .fc .fc-scrollgrid { border-color: #334155; }
+
+    /* Events: no bar, centered plain text */
+    .fc-event {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0;
+    }
+    .fc-event .fc-event-title {
+      color: #cbd5e1;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .fc-daygrid-event-dot { display: none; }
+    .fc-daygrid-day-bg { display: none !important; }
+
+    /* Center time vertically and horizontally in each cell */
+    .fc-daygrid-day-frame {
+      display: flex !important;
+      flex-direction: column;
+      min-height: 85px !important;
+    }
+    .fc-daygrid-day-top {
+      align-self: flex-end;
+      flex-shrink: 0;
+    }
+    .fc-daygrid-day-events {
+      flex: 1;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 !important;
+    }
+    .fc-daygrid-event-harness { width: auto !important; }
+
+    #loading {
+      text-align: center;
+      padding: 60px;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🌅 Sunset Calendar</h1>
+</header>
+
+<div id="calendar-wrap">
+  <div id="loading">Loading calendar…</div>
+  <div id="calendar" style="display:none"></div>
+</div>
+
+<script>
+  // URL params: calendar.html?lat=52.37&lng=4.89&timezone=Europe/Amsterdam
+  const params = new URLSearchParams(location.search);
+  const lat      = params.get('lat')      || '52.389265';
+  const lng      = params.get('lng')      || '4.932007';
+  const timezone = params.get('timezone') || 'Europe/Amsterdam';
+
+  const base = `lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}&timezone=${encodeURIComponent(timezone)}&v=${Math.floor(Date.now() / 86400000)}`;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+    const loadingEl  = document.getElementById('loading');
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left:   'prev,next today',
+        center: 'title',
+        right:  'dayGridMonth,timeGridWeek,listMonth'
+      },
+      height: 'auto',
+      displayEventTime: false,
+      eventSources: [
+        {
+          url: 'nighttime.php?' + base,
+          format: 'ics'
+        }
+      ],
+      loading: function (isLoading) {
+        if (!isLoading) {
+          loadingEl.style.display = 'none';
+          calendarEl.style.display = 'block';
+        }
+      },
+      eventClick: function (info) {
+        info.jsEvent.preventDefault();
+      }
+    });
+
+    calendar.render();
+  });
+</script>
+</body>
+</html>
