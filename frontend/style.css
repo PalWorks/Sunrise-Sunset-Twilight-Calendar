@@ -121,7 +121,6 @@ body {
 .page-intro p.subtitle {
     font-size: 0.95rem;
     color: var(--text-muted);
-    max-width: 600px;
     margin: 0 auto;
     line-height: 1.4;
 }
@@ -824,6 +823,14 @@ input[type="month"] {
     .options-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    #lbl-brahma { grid-column: 1; grid-row: 1; }
+    #lbl-sunrise { grid-column: 1; grid-row: 2; }
+    #lbl-sandhya { grid-column: 1; grid-row: 3; }
+    #lbl-noon { grid-column: 1; grid-row: 4; }
+    
+    #lbl-civil { grid-column: 2; grid-row: 1; }
+    #lbl-nautical { grid-column: 2; grid-row: 2; }
+    #lbl-astronomical { grid-column: 2; grid-row: 3; }
 
     /* Desktop Calendar layouts */
     #calendar-wrapper {
