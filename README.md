@@ -41,3 +41,7 @@ Please refer to the following supplementary documents for deeper technical insig
 * AGENTS.md: Provides explicit behavioral rules and context for AI systems interacting with this repository.
 * DOMAIN.md: Defines the mathematical and astrological entities, such as Sandhya timings, driving the application logic.
 * MEMORY.md: Documents the historical architectural decisions, including the strategic migration away from legacy PHP infrastructure.
+
+## Acknowledgments
+
+The mathematical foundation and domain logic for this project were originally inspired by the previous iteration of the calendar engine. We express our gratitude to all prior contributors who helped lay the groundwork for these precise astrological calculations.
