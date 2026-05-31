@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sunmooncal-v1';
+const CACHE_NAME = 'sunmooncal-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -10,11 +10,11 @@ const ASSETS = [
   '/js/suncalc.js',
   '/js/jspdf.umd.min.js',
   '/js/html2canvas.min.js',
-  '/about.html',
-  '/contact.html',
-  '/definitions.html',
-  '/accuracy.html',
-  '/faq.html'
+  '/about',
+  '/contact',
+  '/definitions',
+  '/accuracy',
+  '/faq'
 ];
 
 self.addEventListener('install', (event) => {
@@ -44,6 +44,12 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
+
+  // Bypass SW for .html extensions (except index.html) because Cloudflare Pages redirects them to clean URLs,
+  // which causes an opaque redirect ERR_FAILED bug in Chromium service workers.
+  if (url.pathname.endsWith('.html') && url.pathname !== '/index.html') {
+    return; // Let the browser handle the 308 redirect natively
+  }
 
   // Stale-While-Revalidate for external CDNs (Leaflet, Google Fonts)
   if (url.hostname === 'unpkg.com' || url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
