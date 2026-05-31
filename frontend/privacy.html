@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Yoga Sadhana Calendar</title>
+    <meta name="description" content="Read our privacy principles. Complete coordinate confidentiality and private offline computations on the Yoga Sadhana Calendar.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Plain Vanilla Header Bar -->
+        <header class="site-header">
+            <a href="index.html" class="header-logo">
+                Yoga Sadhana Calendar
+            </a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <nav class="header-nav" id="header-nav">
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="privacy.html" class="active">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="policy-page-card">
+            <article class="policy-content">
+                <h1>Privacy Policy</h1>
+                <p>At the <strong>Yoga Sadhana Calendar</strong>, we respect the absolute privacy of your daily spiritual routines. We believe that your astronomical and geographical locations are completely personal, and our platform is engineered to protect them accordingly.</p>
+                
+                <h2>Data Privacy Principles</h2>
+                <p>We adhere to strict data privacy principles as outlined below:</p>
+                <ul>
+                    <li><strong>No Location Tracking:</strong> Any coordinate data, latitude, longitude, or city searched inside our interface is handled purely client side in your local web browser. Your exact coordinates are never permanently saved on our servers or sold to third party platforms.</li>
+                    <li><strong>No Cookies:</strong> We do not set analytical, marketing, or tracking cookies inside your browser.</li>
+                    <li><strong>Subscription Privacy:</strong> Live webcal URL subscription requests calculate solar transits dynamically in memory when requested by your native device, without maintaining historical log records of your movements.</li>
+                </ul>
+
+                <h2>Third Party Libraries</h2>
+                <p>Our mapping display uses Leaflet, open source OpenStreetMap tiles, and OpenStreetMap Nominatim reverse geocoding API to resolve coordinates. The queries are handled directly from your browser to their standard services without passing through intermediate databases.</p>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <span>© 2026 Yoga Sadhana Calendar. Precise Astronomical Alignment.</span>
+            <div class="footer-links">
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('header-nav');
+            nav.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

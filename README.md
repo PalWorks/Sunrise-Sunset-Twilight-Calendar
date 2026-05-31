@@ -1,47 +1,24 @@
-# Daylight Calendar ICS
+# Sandhya Calendar
 
-This is a dynamically generated .ics calendar that you can host and subscribe to in Google Calendar, iCal, or other calendar software.
+A serverless application designed to calculate precise astrological and solar timings based on geographic coordinates. 
 
-Not only will it provide an event each day with the appropriate sunrise and sunset time, it will show the length of the day in hours/minutes as well as in a percent (of 24 hours) and the solar noon for that day. It will also give a percentile compared to the shortest and longest days of the year!
+## Project Purpose
+This repository provides a highly scalable, zero maintenance tool for generating customized calendar events including Sunrise, Sunset, Solar Noon, and exact Sandhya transition periods.
 
-## Options
+## Setup Instructions
 
-- [Find your geo coordinates](https://www.latlong.net/)
-- [Find your timezone name](https://www.php.net/manual/en/timezones.php)
-- [Find your GMT offset](http://en.wikipedia.org/wiki/List_of_UTC_time_offsets#mediaviewer/File:World_Time_Zones_Map.png)
+This project is divided into two discrete components designed for the Cloudflare ecosystem:
 
-## Instructions
+1. Frontend Application
+Navigate into the frontend directory. Open index.html in any modern browser to view the application locally. Deploy this folder directly to Cloudflare Pages for global hosting.
 
-- Upload `daylight.php` and/or `sun.php` to your server (or skip this step and use the one hosted on [gearside.com](https://gearside.com/calendars/daylight.php))
-- Point your calendar to the file and use query parameters for the options above.
-  - Latitude: `lat`
-  - Longitude: `lng`
-  - Timezone (preferred way): `timezone`
-  - GMT Offset (alternate way): `gmt`
-  - Year: `year`
-  - Event types (`sun.php` only):
-    - `actual`
-    - `civil`
-    - `nautical`
-    - `astronomical`
-    - `all`
+2. Backend Worker API
+Navigate into the worker directory. Use the official Cloudflare Wrangler CLI tool to install dependencies via npm install. Test locally using the wrangler development server command, and deploy to Cloudflare Workers.
 
-Use `?debug` to directly view the calendar file in a browser with events more easily readable. Be sure not to use `?debug` when subscribing to your calendar as it does not declare itself as an .ics file with that parameter present.
+## Agent Usage Notes
+When developing within this repository, agents must strictly adhere to the formatting rule defined by the user: never use hyphens, double hyphens, triple hyphens, or em dashes in any generated text, code, or documentation.
 
-## Examples
-
-#### Basic
-
-Most reliable method:
-`https://gearside.com/calendars/daylight.php?lat=43.1234&lng=-76.1234&timezone=America/New_York`
-
-Your mileage may vary if only passing GMT offset:
-`https://gearside.com/calendars/daylight.php?lat=43.1234&lng=-76.1234&gmt=-5`
-
-`https://gearside.com/calendars/sun.php?lat=43.1234&lng=-76.1234&gmt=-5&all`
-
-## Notes
-
-Calendar software caches remote .ics files (like this one), so when replacing it you can "bust" the cache by adding another query parameter of random characters such as `&sdfgsfd`.
-
-- [More information available at Gearside.com](https://gearside.com/google-daylight-calendar/)
+## Documentation Index
+* ARCHITECTURE.md: Explains the separation of frontend and backend logic.
+* DOMAIN.md: Defines the mathematical and astrological entities like Sandhya timings.
+* MEMORY.md: Documents the architectural decision to migrate away from legacy PHP scripts.

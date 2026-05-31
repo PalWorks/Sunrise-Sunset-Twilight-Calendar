@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Yoga Sadhana Calendar</title>
+    <meta name="description" content="Get in touch with the Yoga Sadhana Calendar support team. Align your practices with traditional astronomical cycles.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Plain Vanilla Header Bar -->
+        <header class="site-header">
+            <a href="index.html" class="header-logo">
+                Yoga Sadhana Calendar
+            </a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <nav class="header-nav" id="header-nav">
+                <a href="about.html">About Us</a>
+                <a href="contact.html" class="active">Contact Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="policy-page-card">
+            <article class="policy-content">
+                <h1>Contact Us</h1>
+                <p>Have questions about astronomical calculations, Brahma Muhurta timing logic, or integrating calendar subscriptions into your devices? We are here to help you align your spiritual practices.</p>
+                
+                <h2>Support Pathways</h2>
+                <p>Reach out to us directly through the options below:</p>
+                <ul>
+                    <li><strong>Email Inquiries:</strong> support@yogasadhana.com</li>
+                    <li><strong>Response Window:</strong> We strive to answer all technical and alignment questions within 48 hours.</li>
+                </ul>
+
+                <h2>Feedback &amp; Suggestions</h2>
+                <p>The Yoga Sadhana Calendar is built for the global practitioner community. If you would like to suggest additional calculation models, coordinates support, or have found anomalies in localized zone displays, please email our support team.</p>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <span>© 2026 Yoga Sadhana Calendar. Precise Astronomical Alignment.</span>
+            <div class="footer-links">
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const nav = document.getElementById('header-nav');
+            nav.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
