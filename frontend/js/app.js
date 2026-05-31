@@ -136,7 +136,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
     const installCard = document.getElementById('card-pwa');
     const installBtnCard = document.getElementById('btn-install-pwa-card');
     
-    const showInstallPrompt = async () => {
+    const showInstallPrompt = async (clickEvent) => {
+        if (clickEvent) clickEvent.preventDefault();
         if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
@@ -144,8 +145,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
                 console.log('User accepted the install prompt');
             }
             deferredPrompt = null;
-            if (installBtn) installBtn.style.display = 'none';
-            if (installCard) installCard.style.display = 'none';
+        } else {
+            alert("To install the app, click the install icon in your browser's address bar.");
         }
     };
 
@@ -156,6 +157,19 @@ window.addEventListener('beforeinstallprompt', (e) => {
     if (installBtnCard) {
         if (installCard) installCard.style.display = 'block';
         installBtnCard.addEventListener('click', showInstallPrompt);
+    }
+});
+
+// Also attach a fallback directly in case beforeinstallprompt hasn't fired yet
+document.addEventListener('DOMContentLoaded', () => {
+    const fallbackBtn = document.getElementById('btn-install-pwa-card');
+    if (fallbackBtn) {
+        fallbackBtn.addEventListener('click', (e) => {
+            if (!deferredPrompt) {
+                e.preventDefault();
+                alert("If the install prompt doesn't appear, you can install the app by clicking the install icon in your browser's address bar (near the bookmark star).");
+            }
+        });
     }
 });
 
