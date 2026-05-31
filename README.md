@@ -44,4 +44,4 @@ Please refer to the following supplementary documents for deeper technical insig
 
 ## Acknowledgments
 
-The mathematical foundation and domain logic for this project were originally inspired by the previous iteration of the calendar engine. We express our gratitude to all prior contributors who helped lay the groundwork for these precise astrological calculations.
+The mathematical foundation and domain logic for this project were originally inspired by the [Daylight Calendar ICS](https://github.com/chrisblakley/Daylight-Calendar-ICS) repository. We express our gratitude to Chris Blakley and all prior contributors who helped lay the groundwork for these precise astrological calculations.
