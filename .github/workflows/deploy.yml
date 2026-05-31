@@ -21,7 +21,7 @@ jobs:
           projectName: sunmooncal
           directory: frontend
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
+          branch: main
 
   deploy-backend:
     name: Deploy Backend API
