@@ -43,13 +43,34 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Stale-While-Revalidate for external CDNs (Leaflet, Google Fonts)
+  if (url.hostname === 'unpkg.com' || url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
+    event.respondWith(
+      caches.open('sunmooncal-cdn-v1').then((cache) => {
+        return cache.match(event.request).then((cachedResponse) => {
+          const fetchPromise = fetch(event.request).then((networkResponse) => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          }).catch(() => {
+            console.error('[SW Error] Failed to fetch CDN resource:', event.request.url);
+          });
+          return cachedResponse || fetchPromise;
+        });
+      })
+    );
+    return;
+  }
+
+  // Cache First for local assets
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
         return cachedResponse;
       }
-      return fetch(event.request).catch(() => {
-        // Fallback for offline if page is not in cache, though we cached all pages
+      return fetch(event.request).catch((err) => {
+        console.error('[SW Error] Network fetch failed:', err);
         if (event.request.mode === 'navigate') {
           return caches.match('/index.html');
         }

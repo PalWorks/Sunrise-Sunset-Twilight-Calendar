@@ -59,9 +59,9 @@ async function handleLocationInput(e) {
             }
         } catch(err) {
             if (err.name === 'AbortError') {
-                console.log('Fetch aborted due to new input');
+                console.log('[API Fetch] Aborted due to new input');
             } else {
-                console.error("Autocomplete error", err);
+                console.error("[API Error] Autocomplete failed:", err);
             }
         }
     }, 300);
@@ -101,8 +101,8 @@ async function searchLocationByText() {
             alert('City not found. Please try another name.');
         }
     } catch (err) {
-        alert('Error fetching location.');
-        console.error(err);
+        alert('Network error fetching location. Please try again.');
+        console.error('[API Error] Geocoding fetch failed:', err);
     } finally {
         input.style.opacity = '1';
     }
@@ -188,7 +188,8 @@ async function updateLocationFromCoords(lat, lng) {
 
         await finalizeLocationUpdate(lat, lng, locName);
     } catch (err) {
-        console.error(err);
+        console.error('[API Error] Reverse geocoding failed:', err);
+        alert('Could not resolve city name for coordinates. Proceeding with raw coordinates.');
         await finalizeLocationUpdate(lat, lng, "Map Location");
     }
 }
@@ -239,6 +240,7 @@ async function finalizeLocationUpdate(lat, lng, locName) {
             tzOffsetEl.textContent = `(GMT ${sign}${hrs}${mins})`;
         }
     } catch(e) {
+        console.error('[API Error] Timezone fetch failed:', e);
         tzEl.textContent = "GMT Offset";
         tzOffsetEl.textContent = "";
         targetTimezone = null;

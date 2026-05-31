@@ -50,7 +50,7 @@ function jumpToTextDate() {
 }
 
 function formatTime(dateObj) {
-    if (!dateObj) return "--:--";
+    if (!dateObj || isNaN(dateObj.getTime())) return "N/A";
     
     let options = {
         hour: '2-digit', 

@@ -72,14 +72,6 @@ function getLocation() {
     }
 }
 
-function toggleTimeFormat() {
-    use24Hour = !use24Hour;
-    document.getElementById('btn-time-format').textContent = use24Hour ? "24 Hr" : "12 Hr";
-    if (document.getElementById('modal-overlay').style.display === 'flex') {
-        renderCalendar();
-    }
-}
-
 function updateDynamicUrls() {
     if (currentLat === null || currentLng === null) return;
     
@@ -156,3 +148,21 @@ window.addEventListener('beforeinstallprompt', (e) => {
         });
     }
 });
+
+// Detect iOS for manual PWA install tooltip
+const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+};
+const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+if (isIos() && !isInStandaloneMode()) {
+    const installBtn = document.getElementById('btn-install-pwa');
+    if (installBtn) {
+        installBtn.style.display = 'inline-block';
+        installBtn.textContent = "Install (iOS)";
+        installBtn.addEventListener('click', () => {
+            alert("To install the app on iOS: tap the 'Share' icon at the bottom of Safari, then scroll down and tap 'Add to Home Screen'.");
+        });
+    }
+}
