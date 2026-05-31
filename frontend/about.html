@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Yoga Sadhana Calendar</title>
+    <title>About Us - Sun Moon Calendar</title>
     <meta name="description" content="Align your practices with traditional astronomical cycles. Mathematically calculated Sunrise, Sunset, Brahma Muhurta, and Sandhya junctions.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body class="scrollable">
     <div class="container">
         <!-- Plain Vanilla Header Bar -->
         <header class="site-header">
             <a href="index.html" class="header-logo">
-                Yoga Sadhana Calendar
+                Sun Moon Calendar
             </a>
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -30,14 +35,17 @@
                 <a href="definitions.html">Definitions</a>
                 <a href="accuracy.html">Accuracy</a>
                 <a href="faq.html">FAQs</a>
+                            <button id="btn-install-pwa" class="btn-action" style="display: none; align-items: center; justify-content: center; gap: 0.5rem;">
+                    Install App
+                </button>
             </nav>
         </header>
 
         <!-- Main Content -->
         <main class="policy-page-card">
             <article class="policy-content">
-                <h1>About Yoga Sadhana Calendar</h1>
-                <p>Welcome to the <strong>Yoga Sadhana Calendar</strong>. Our mission is to bridge precise astronomical measurements with ancient yogic traditions, empowering practitioners worldwide to align their daily schedules with natural cosmic rhythms.</p>
+                <h1>About Sun Moon Calendar</h1>
+                <p>Welcome to the <strong>Sun Moon Calendar</strong>. Our mission is to bridge precise astronomical measurements with ancient yogic traditions, empowering practitioners worldwide to align their daily schedules with natural cosmic rhythms.</p>
                 
                 <h2>The Significance of Solar Junctions</h2>
                 <p>In yogic sciences, transition periods of the day are known as <em>Sandhyas</em>. These times exhibit unique energetic transitions that directly influence the human system:</p>
@@ -48,7 +56,7 @@
                 </ul>
 
                 <h2>Mathematical Precision</h2>
-                <p>Traditional calendars often rely on static time tables that fail to account for daily differences in day length, latitude, or atmospheric refraction. The Yoga Sadhana Calendar utilizes precise astronomical trigonometry equations to calculate these occurrences to the exact minute for your coordinates on any day of the year.</p>
+                <p>Traditional calendars often rely on static time tables that fail to account for daily differences in day length, latitude, or atmospheric refraction. The Sun Moon Calendar utilizes precise astronomical trigonometry equations to calculate these occurrences to the exact minute for your coordinates on any day of the year.</p>
 
                 <h2>Acknowledgments</h2>
                 <p>The mathematical foundation and domain logic for this project were originally inspired by the <a href="https://github.com/chrisblakley/Daylight-Calendar-ICS" target="_blank" rel="noopener noreferrer">Daylight Calendar ICS</a> repository. We express our gratitude to Chris Blakley and all prior contributors who helped lay the groundwork for these precise astrological calculations.</p>
@@ -57,7 +65,7 @@
 
         <!-- Footer -->
         <footer class="site-footer">
-            <span>© 2026 Yoga Sadhana Calendar. Precise Astronomical Alignment.</span>
+            <span>© 2026 Sun Moon Calendar. Precise Astronomical Alignment.</span>
             <div class="footer-links">
                 <a href="about.html">About Us</a>
                 <a href="contact.html">Contact Us</a>
