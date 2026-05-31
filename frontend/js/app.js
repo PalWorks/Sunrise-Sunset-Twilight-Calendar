@@ -133,19 +133,29 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
     const installBtn = document.getElementById('btn-install-pwa');
+    const installCard = document.getElementById('card-pwa');
+    const installBtnCard = document.getElementById('btn-install-pwa-card');
+    
+    const showInstallPrompt = async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            }
+            deferredPrompt = null;
+            if (installBtn) installBtn.style.display = 'none';
+            if (installCard) installCard.style.display = 'none';
+        }
+    };
+
     if (installBtn) {
         installBtn.style.display = 'inline-block';
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                }
-                deferredPrompt = null;
-                installBtn.style.display = 'none';
-            }
-        });
+        installBtn.addEventListener('click', showInstallPrompt);
+    }
+    if (installCard && installBtnCard) {
+        installCard.style.display = 'block';
+        installBtnCard.addEventListener('click', showInstallPrompt);
     }
 });
 
@@ -158,11 +168,24 @@ const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.n
 
 if (isIos() && !isInStandaloneMode()) {
     const installBtn = document.getElementById('btn-install-pwa');
+    const installCard = document.getElementById('card-pwa');
+    const installBtnCard = document.getElementById('btn-install-pwa-card');
+    const installMsg = document.getElementById('pwa-install-msg');
+    
+    const iosInstallAlert = () => {
+        alert("To install the app on iOS: tap the 'Share' icon at the bottom of Safari, then scroll down and tap 'Add to Home Screen'.");
+    };
+
     if (installBtn) {
         installBtn.style.display = 'inline-block';
         installBtn.textContent = "Install (iOS)";
-        installBtn.addEventListener('click', () => {
-            alert("To install the app on iOS: tap the 'Share' icon at the bottom of Safari, then scroll down and tap 'Add to Home Screen'.");
-        });
+        installBtn.addEventListener('click', iosInstallAlert);
+    }
+    
+    if (installCard && installBtnCard && installMsg) {
+        installCard.style.display = 'block';
+        installBtnCard.textContent = "Install (iOS)";
+        installMsg.textContent = "To install on iOS: tap the 'Share' icon below, then 'Add to Home Screen'.";
+        installBtnCard.addEventListener('click', iosInstallAlert);
     }
 }

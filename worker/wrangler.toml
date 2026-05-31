@@ -1,6 +1,10 @@
 name = "sun-calendar-worker"
 main = "src/index.js"
 compatibility_date = "2023-10-16"
+account_id = "96ec2a311affbd387b884673c0e84eb8"
 
+routes = [
+  { pattern = "api.sunmooncal.com", custom_domain = true }
+]
 [build]
 command = "npm install"

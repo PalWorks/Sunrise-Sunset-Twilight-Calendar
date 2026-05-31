@@ -1,0 +1,11 @@
+name = "sun-calendar-monitor"
+main = "src/index.js"
+compatibility_date = "2023-10-16"
+account_id = "96ec2a311affbd387b884673c0e84eb8"
+
+# Cron trigger: run every 10 minutes
+[triggers]
+crons = ["*/10 * * * *"]
+
+[vars]
+GCHAT_WEBHOOK_URL = "" # Set this securely via `wrangler secret put GCHAT_WEBHOOK_URL`
