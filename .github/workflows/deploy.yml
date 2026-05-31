@@ -7,6 +7,9 @@ jobs:
   deploy-frontend:
     name: Deploy Frontend to Pages
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v4
 
@@ -18,7 +21,7 @@ jobs:
           projectName: sunmooncal
           directory: frontend
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+          branch: master
 
   deploy-backend:
     name: Deploy Backend API
