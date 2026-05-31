@@ -7,6 +7,9 @@
     --accent-tertiary: #059669;
     --accent-brahma: #a855f7;
     --accent-twilight: #3b82f6;
+    --accent-moon-poornima: #0f172a;
+    --accent-moon-amavasya: #94a3b8;
+    --accent-moon-times: #64748b;
     --text-main: #0f172a;
     --text-muted: #475569;
 }
@@ -51,7 +54,8 @@ body {
     border-radius: 12px;
     box-sizing: border-box;
     z-index: 1000;
-    position: relative;
+    position: sticky;
+    top: 1rem;
     flex-shrink: 0;
 }
 
@@ -265,6 +269,7 @@ body {
     border: 1px solid var(--card-border);
     z-index: 1;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-sizing: border-box;
 }
 
 /* Custom Pulse Marker */
@@ -707,6 +712,27 @@ input[type="month"] {
     margin-bottom: 2px;
 }
 
+.day-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.moon-illumination-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--accent-moon-amavasya);
+}
+
+.moon-icon-header {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 0.8;
+    margin-top: -0.2rem;
+}
+
 /* Event status dots for compact layouts */
 .day-dots {
     display: flex;
@@ -725,6 +751,10 @@ input[type="month"] {
 .dot-sandhya { background: var(--accent-secondary); }
 .dot-noon { background: var(--accent-tertiary); }
 .dot-twilight { background: var(--accent-twilight); }
+.dot-poornima { background: var(--accent-moon-poornima); }
+.dot-amavasya { background: var(--accent-moon-amavasya); }
+.dot-moonrise { background: var(--accent-moon-times); }
+.dot-moonset { background: var(--accent-moon-times); }
 
 .day-event {
     display: none;
@@ -752,6 +782,10 @@ input[type="month"] {
 .e-sandhya { border-left: 2px solid var(--accent-secondary); }
 .e-noon { border-left: 2px solid var(--accent-tertiary); }
 .e-twilight { border-left: 2px solid var(--accent-twilight); }
+.e-poornima { border-left: 2px solid var(--accent-moon-poornima); }
+.e-amavasya { border-left: 2px solid var(--accent-moon-amavasya); }
+.e-moonrise { border-left: 2px solid var(--accent-moon-times); }
+.e-moonset { border-left: 2px solid var(--accent-moon-times); }
 
 .export-btn {
     background: var(--accent-tertiary);
@@ -884,6 +918,12 @@ input[type="month"] {
         padding: 1.5rem;
     }
 
+    body.scrollable {
+        height: auto !important;
+        overflow-y: auto !important;
+        justify-content: flex-start !important;
+    }
+
     .container {
         height: 100%;
         gap: 1rem;
@@ -915,7 +955,10 @@ input[type="month"] {
     }
 
     #map-wrapper {
-        height: 320px;
+        height: auto;
+        flex: 1;
+        min-height: 220px;
+        max-height: 450px;
     }
 
     .options-grid {
@@ -933,7 +976,7 @@ input[type="month"] {
     /* Desktop Calendar layouts */
     #calendar-wrapper {
         padding: 2rem;
-        max-height: 95vh;
+        max-height: none;
         max-width: 100%;
         width: 100%;
     }
@@ -958,9 +1001,8 @@ input[type="month"] {
         padding: 0 60px;
     }
     .calendar-grid {
-        grid-template-rows: auto repeat(6, 1fr);
-        flex: 1;
-        min-height: 0;
+        grid-template-rows: auto repeat(6, minmax(140px, max-content));
+        flex: none;
     }
     .cal-header-day {
         font-size: 0.9rem;
@@ -1195,6 +1237,17 @@ input[type="month"] {
         left: calc(50% + 8px) !important;
         right: auto !important;
     }
+}
+
+/* Calendar Watermark Footer */
+.calendar-watermark {
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 0.75rem 1rem 0 1rem;
+    border-top: 1px solid var(--card-border);
+    margin-top: 1rem;
+    font-weight: 500;
 }
 
 /* Print CSS Media Elements */

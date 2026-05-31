@@ -3,6 +3,7 @@
 let currentLat = null;
 let currentLng = null;
 let currentCity = "";
+let currentLocationName = "";
 let targetTimezone = null;
 let currentDate = new Date();
 let use24Hour = true;
@@ -53,38 +54,57 @@ function toggleTimeFormat() {
 }
 
 function updateDynamicUrls() {
-    if (currentLat === null) return;
+    if (currentLat === null || currentLng === null) return;
     
-    let url = `https://api.yogasadhanacalendar.com/sync?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}`;
+    const opts = [];
+    if (document.getElementById('opt-brahma').checked) opts.push('brahma');
+    if (document.getElementById('opt-sunrise').checked) opts.push('sun');
+    if (document.getElementById('opt-sandhya').checked) opts.push('sandhya');
+    if (document.getElementById('opt-noon').checked) opts.push('noon');
+    if (document.getElementById('opt-civil').checked) opts.push('civil');
+    if (document.getElementById('opt-nautical').checked) opts.push('nautical');
+    if (document.getElementById('opt-astronomical').checked) opts.push('astronomical');
+    if (document.getElementById('opt-moon-phases').checked) opts.push('moon_phases');
+    if (document.getElementById('opt-moon-times').checked) opts.push('moon_times');
     
-    let events = [];
-    if (document.getElementById('opt-brahma').checked) events.push('brahma');
-    if (document.getElementById('opt-sunrise').checked) events.push('sun');
-    if (document.getElementById('opt-sandhya').checked) events.push('sandhya');
-    if (document.getElementById('opt-noon').checked) events.push('noon');
-    if (document.getElementById('opt-civil').checked) events.push('civil');
-    if (document.getElementById('opt-nautical').checked) events.push('nautical');
-    if (document.getElementById('opt-astronomical').checked) events.push('astronomical');
+    const optionsStr = opts.join(',');
+    const workerUrl = `https://api.yogasadhanacalendar.com/sync?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}&options=${optionsStr}`;
+    const webcalUrl = workerUrl.replace('https://', 'webcal://').replace('http://', 'webcal://');
+    const googleCalUrl = `https://www.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
     
-    if (events.length > 0) {
-        url += `&events=${events.join(',')}`;
-    }
-    
-    document.getElementById('manual-sync-url').value = url;
+    document.getElementById('btn-apple-cal').href = webcalUrl;
+    document.getElementById('btn-google-cal').href = googleCalUrl;
+    document.getElementById('manual-sync-url').value = workerUrl;
 }
 
-function copyUrl() {
+function subscribeDynamic(e) {
+    if (e) e.preventDefault();
+    if (currentLat === null || currentLng === null) return;
+    
+    updateDynamicUrls();
+    
+    const drawer = document.getElementById('dynamic-sync-drawer');
+    if (drawer.style.display === 'none' || !drawer.style.display) {
+        drawer.style.display = 'flex';
+    } else {
+        drawer.style.display = 'none';
+    }
+}
+
+function copySyncUrl() {
     const input = document.getElementById('manual-sync-url');
     input.select();
-    input.setSelectionRange(0, 99999); 
-    try {
-        document.execCommand('copy');
-        const btn = document.getElementById('copy-btn');
-        btn.textContent = "Copied!";
-        setTimeout(() => { btn.textContent = "Copy"; }, 2000);
-    } catch (err) {
-        console.error('Fallback copy failed', err);
-    }
+    input.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(input.value).then(() => {
+        const btn = document.getElementById('copy-sync-btn');
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-tertiary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        setTimeout(() => {
+            btn.innerHTML = originalHtml;
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', initDefaults);

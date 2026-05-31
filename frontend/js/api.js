@@ -196,6 +196,7 @@ async function updateLocationFromCoords(lat, lng) {
 async function finalizeLocationUpdate(lat, lng, locName) {
     currentLat = lat;
     currentLng = lng;
+    currentLocationName = locName;
     
     const pulseIcon = L.divIcon({
         className: 'custom-pulse-icon',

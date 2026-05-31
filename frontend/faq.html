@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Yoga Sadhana Calendar</title>
-    <meta name="description" content="Read our privacy principles. Complete coordinate confidentiality and private offline computations on the Yoga Sadhana Calendar.">
+    <title>Frequently Asked Questions - Yoga Sadhana Calendar</title>
+    <meta name="description" content="Common questions regarding the Yoga Sadhana Calendar.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -29,26 +29,30 @@
                 <a href="contact.html">Contact Us</a>
                 <a href="definitions.html">Definitions</a>
                 <a href="accuracy.html">Accuracy</a>
-                <a href="faq.html">FAQs</a>
+                <a href="faq.html" class="active">FAQs</a>
             </nav>
         </header>
 
         <!-- Main Content -->
         <main class="policy-page-card">
             <article class="policy-content">
-                <h1>Privacy Policy</h1>
-                <p>At the <strong>Yoga Sadhana Calendar</strong>, we respect the absolute privacy of your daily spiritual routines. We believe that your astronomical and geographical locations are completely personal, and our platform is engineered to protect them accordingly.</p>
+                <h1>Frequently Asked Questions</h1>
+                <p>Find answers to the most common questions regarding our calculations, calendar synchronization, and data privacy.</p>
                 
-                <h2>Data Privacy Principles</h2>
-                <p>We adhere to strict data privacy principles as outlined below:</p>
-                <ul>
-                    <li><strong>No Location Tracking:</strong> Any coordinate data, latitude, longitude, or city searched inside our interface is handled purely client side in your local web browser. Your exact coordinates are never permanently saved on our servers or sold to third party platforms.</li>
-                    <li><strong>No Cookies:</strong> We do not set analytical, marketing, or tracking cookies inside your browser.</li>
-                    <li><strong>Subscription Privacy:</strong> Live webcal URL subscription requests calculate solar transits dynamically in memory when requested by your native device, without maintaining historical log records of your movements.</li>
-                </ul>
+                <h2>Why are the Sandhya windows exactly 40 minutes?</h2>
+                <p>In Vedic traditions, the Sandhya represents the junction between day and night. We utilize a precise 40 minute window centered perfectly on the exact moment of sunrise and sunset (starting 20 minutes prior and ending 20 minutes after) to denote the most energetically potent transition period.</p>
 
-                <h2>Third Party Libraries</h2>
-                <p>Our mapping display uses Leaflet, open source OpenStreetMap tiles, and OpenStreetMap Nominatim reverse geocoding API to resolve coordinates. The queries are handled directly from your browser to their standard services without passing through intermediate databases.</p>
+                <h2>Do I need to adjust the times for Daylight Saving Time?</h2>
+                <p>No. Our application calculates all events based on your exact geographical coordinates and automatically adjusts for Daylight Saving Time rules applicable to your timezone.</p>
+
+                <h2>Is my location data saved or tracked?</h2>
+                <p>Absolutely not. We prioritize your privacy. All geocoding and coordinate processing remains strictly stateless. The coordinates are processed locally in your browser when viewing the visual calendar, and processed temporarily at the edge when generating an ICS file. We do not store, log, or transmit any location data to third party analytics services.</p>
+
+                <h2>Why might the times slightly differ from other weather apps?</h2>
+                <p>Our timings might differ by a minute from generic weather applications because we calculate timings based on your exact latitude and longitude down to a pinpointed accuracy. Many generic apps provide times for a generalized city center.</p>
+
+                <h2>How can I get the calendar on my phone?</h2>
+                <p>You can use the "Subscribe to Calendar" feature on the main page. This will generate a Webcal link that seamlessly integrates into Apple Calendar, Google Calendar, and Microsoft Outlook, fetching daily solar updates automatically without you needing to do anything manually!</p>
             </article>
         </main>
 
