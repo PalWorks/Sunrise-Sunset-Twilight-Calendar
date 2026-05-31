@@ -7,7 +7,7 @@ function toICSDate(date) {
 
 function generateUID(dateStr, eventName) {
     const cleanName = eventName.replace(/\s+/g, '').toLowerCase();
-    return `${dateStr}_${cleanName}@yogasadhana.com`;
+    return `${dateStr}_${cleanName}@sunmooncal.com`;
 }
 
 function createEvent(name, start, end, description = '') {
@@ -117,7 +117,7 @@ function generateStaticICS() {
         const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = `yogasadhana_${currentCity.toLowerCase().replace(/\s+/g, '_')}_1_year.ics`;
+        link.download = `sunmooncal_${currentCity.toLowerCase().replace(/\s+/g, '_')}_1_year.ics`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -162,7 +162,7 @@ async function downloadCalendarImage() {
             }
         });
         const link = document.createElement('a');
-        link.download = `yogasadhana_calendar_${currentCity.toLowerCase()}_${currentDate.getMonth()+1}_${currentDate.getFullYear()}.png`;
+        link.download = `sunmooncal_calendar_${currentCity.toLowerCase()}_${currentDate.getMonth()+1}_${currentDate.getFullYear()}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
     } catch (err) {
@@ -233,7 +233,7 @@ async function downloadCalendarPDF() {
         const yPos = margin + (maxAvailableHeight - finalHeight) / 2;
         
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', xPos, yPos, finalWidth, finalHeight);
-        pdf.save(`yogasadhana_calendar_${currentCity.toLowerCase()}_${currentDate.getMonth()+1}_${currentDate.getFullYear()}.pdf`);
+        pdf.save(`sunmooncal_calendar_${currentCity.toLowerCase()}_${currentDate.getMonth()+1}_${currentDate.getFullYear()}.pdf`);
         
     } catch (err) {
         console.error(err);

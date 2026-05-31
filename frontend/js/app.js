@@ -6,6 +6,7 @@ let currentCity = "";
 let currentLocationName = "";
 let targetTimezone = null;
 let currentDate = new Date();
+let deferredPrompt; // PWA Install Prompt
 let use24Hour = true;
 let selectedDayNum = 1;
 let showDetailedTimings = false;
@@ -23,6 +24,32 @@ function initDefaults() {
             }
         });
     });
+    
+    // Check if running as a Chrome Extension
+    const isExtension = typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id;
+    if (isExtension) {
+        // Find the dynamic sync card (it's the one before the visual calendar card, wait, it has an id? No, it's the second card in action-grid)
+        const cards = document.querySelectorAll('#action-grid .card');
+        if (cards.length >= 2) {
+            cards[1].innerHTML = `
+                <div class="card-header-row">
+                    <h2>Live Background Sync</h2>
+                    <span class="tag tag-dynamic" style="background: var(--bg-tertiary); color: var(--text-main); border: 1px solid var(--border-color);">Chrome Extension</span>
+                </div>
+                <p>Silently update your Google Calendar in the background whenever you travel. 100% private. No data sent to our servers.</p>
+                <button class="btn-action" onclick="enableExtensionSync()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l-3.32 3.32"/></svg>
+                    Enable Auto-Sync
+                </button>
+            `;
+        }
+        const extPromo = document.querySelector('.card-extension');
+        if (extPromo) extPromo.style.display = 'none';
+    }
+}
+
+function enableExtensionSync() {
+    alert("In a full implementation, this would trigger chrome.identity.getAuthToken to authenticate with Google Calendar.");
 }
 
 function getLocation() {
@@ -68,7 +95,7 @@ function updateDynamicUrls() {
     if (document.getElementById('opt-moon-times').checked) opts.push('moon_times');
     
     const optionsStr = opts.join(',');
-    const workerUrl = `https://api.yogasadhanacalendar.com/sync?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}&options=${optionsStr}`;
+    const workerUrl = `https://api.sunmooncal.com/sync?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}&options=${optionsStr}`;
     const webcalUrl = workerUrl.replace('https://', 'webcal://').replace('http://', 'webcal://');
     const googleCalUrl = `https://www.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
     
@@ -108,3 +135,24 @@ function copySyncUrl() {
 }
 
 document.addEventListener('DOMContentLoaded', initDefaults);
+
+// PWA Install Prompt Handling
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById('btn-install-pwa');
+    if (installBtn) {
+        installBtn.style.display = 'inline-block';
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                }
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            }
+        });
+    }
+});

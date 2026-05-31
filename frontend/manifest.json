@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Sun Moon Calendar",
+  "version": "1.0.0",
+  "description": "Precise solar and lunar timings mathematically calculated for your exact coordinates, with automatic travel sync.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Open Calendar"
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "permissions": [
+    "geolocation",
+    "identity",
+    "alarms"
+  ],
+  "oauth2": {
+    "client_id": "REPLACE_WITH_YOUR_GOOGLE_OAUTH_CLIENT_ID",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.events"
+    ]
+  },
+  "icons": {
+    "16": "icon-192.png",
+    "48": "icon-192.png",
+    "128": "icon-512.png"
+  }
+}

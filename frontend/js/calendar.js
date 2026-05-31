@@ -1,6 +1,6 @@
 /* Visual Calendar Modal Engine */
 
-const websiteName = "YogaSadhanaCalendar.com";
+const websiteName = "SunMoonCal.com";
 
 function showVisualCalendar() {
     if (currentLat === null) return;

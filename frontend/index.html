@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoga Sadhana Calendar - Precise Solar Timings</title>
+    <title>Sun Moon Calendar - Precise Solar Timings</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="site.webmanifest">
 
 </head>
 <body>
@@ -22,7 +23,7 @@
         <header class="site-header">
             <h1 style="margin: 0; font-size: inherit; font-weight: inherit; line-height: inherit;">
                 <a href="index.html" class="header-logo">
-                    Yoga Sadhana Calendar
+                    Sun Moon Calendar
                 </a>
             </h1>
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)">
@@ -38,6 +39,7 @@
                 <a href="definitions.html">Definitions</a>
                 <a href="accuracy.html">Accuracy</a>
                 <a href="faq.html">FAQs</a>
+                <button id="btn-install-pwa" class="btn-action" style="display: none; padding: 0.3rem 0.8rem; font-size: 0.85rem; margin-left: 1rem;">Install App</button>
             </nav>
         </header>
  
@@ -184,13 +186,21 @@
                         </button>
                     </div>
         
+                    <div class="card card-extension" style="margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--radius-lg);">
+                        <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--text-main);">Available on Chrome</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">Get live background syncing as you travel with our native Chrome Extension.</p>
+                        <a href="#" class="btn-action" style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; padding: 0.6rem 1.2rem; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-main);">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
+                            Add to Chrome
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <footer class="site-footer">
             <div>
-                &copy; 2026 Yoga Sadhana Calendar. Precise Astronomical Alignment.
+                &copy; 2026 Sun Moon Calendar. Precise Astronomical Alignment.
             </div>
             <div class="footer-links">
                 <a href="about.html">About Us</a>
@@ -252,7 +262,18 @@
     </div>
 
     <script src="navigation.js" defer></script>
-    <script src="js/app.js" defer></script>
+    <script src="js/app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('SW registered: ', registration);
+                }).catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+    </script>
     <script src="js/api.js" defer></script>
     <script src="js/calendar.js" defer></script>
     <script src="js/export.js" defer></script>

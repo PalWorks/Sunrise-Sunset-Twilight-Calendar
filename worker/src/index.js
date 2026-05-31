@@ -7,7 +7,7 @@ function toICSDate(date) {
 
 function generateUID(dateStr, eventName) {
   const cleanName = eventName.replace(/\s+/g, '').toLowerCase();
-  return `${dateStr}_${cleanName}@yogasadhana.com`;
+  return `${dateStr}_${cleanName}@sunmooncal.com`;
 }
 
 function createEvent(name, start, end, description = '') {
@@ -137,7 +137,7 @@ export default {
     return new Response(icsContent, {
       headers: {
         'Content-Type': 'text/calendar; charset=utf-8',
-        'Content-Disposition': 'attachment; filename="yogasadhana.ics"',
+        'Content-Disposition': 'attachment; filename="sunmooncal.ics"',
         'Access-Control-Allow-Origin': '*'
       }
     });
