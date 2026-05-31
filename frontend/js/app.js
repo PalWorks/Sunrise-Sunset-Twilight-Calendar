@@ -153,8 +153,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
         installBtn.style.display = 'inline-block';
         installBtn.addEventListener('click', showInstallPrompt);
     }
-    if (installCard && installBtnCard) {
-        installCard.style.display = 'block';
+    if (installBtnCard) {
+        if (installCard) installCard.style.display = 'block';
         installBtnCard.addEventListener('click', showInstallPrompt);
     }
 });
@@ -182,10 +182,10 @@ if (isIos() && !isInStandaloneMode()) {
         installBtn.addEventListener('click', iosInstallAlert);
     }
     
-    if (installCard && installBtnCard && installMsg) {
-        installCard.style.display = 'block';
-        installBtnCard.textContent = "Install (iOS)";
-        installMsg.textContent = "To install on iOS: tap the 'Share' icon below, then 'Add to Home Screen'.";
-        installBtnCard.addEventListener('click', iosInstallAlert);
+    if (installBtnCard) {
+        installBtnCard.addEventListener('click', (e) => {
+            e.preventDefault();
+            iosInstallAlert();
+        });
     }
 }
