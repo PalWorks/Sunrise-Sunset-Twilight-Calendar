@@ -17,7 +17,14 @@ const OPEN_SVG = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" st
 /**
  * Mobile Drawer Menu Handlers
  */
-function toggleMobileMenu() {
+function toggleMobileMenu(event) {
+    const ev = event || window.event;
+    if (ev) {
+        if (typeof ev.stopPropagation === 'function') {
+            ev.stopPropagation();
+        }
+    }
+    
     const nav = document.getElementById('header-nav');
     const toggle = document.getElementById('menu-toggle');
     if (!nav || !toggle) return;
@@ -25,15 +32,6 @@ function toggleMobileMenu() {
     const isActive = nav.classList.toggle('active');
     toggle.classList.toggle('active', isActive);
     toggle.innerHTML = isActive ? OPEN_SVG : CLOSED_SVG;
-    
-    if (isActive) {
-        // Push menu state into history for clean back-button integration
-        history.pushState({ menuOpen: true }, '');
-    } else {
-        if (history.state && history.state.menuOpen) {
-            history.back();
-        }
-    }
 }
 
 function closeMobileMenu() {
@@ -45,9 +43,6 @@ function closeMobileMenu() {
             toggle.classList.remove('active');
             toggle.innerHTML = CLOSED_SVG;
         }
-        if (history.state && history.state.menuOpen) {
-            history.back();
-        }
     }
 }
 
@@ -58,8 +53,14 @@ function openCalendarModal() {
     const modal = document.getElementById('modal-overlay');
     if (modal) {
         modal.style.display = 'flex';
-        // Push modal state into history
-        history.pushState({ modalOpen: true }, '');
+        // Push modal state into history safely
+        try {
+            if (window.history && typeof window.history.pushState === 'function') {
+                window.history.pushState({ modalOpen: true }, '');
+            }
+        } catch (e) {
+            console.warn('History pushState not supported:', e);
+        }
     }
 }
 
@@ -67,8 +68,12 @@ function closeCalendarModal() {
     const modal = document.getElementById('modal-overlay');
     if (modal && modal.style.display === 'flex') {
         modal.style.display = 'none';
-        if (history.state && history.state.modalOpen) {
-            history.back();
+        try {
+            if (window.history && window.history.state && window.history.state.modalOpen) {
+                window.history.back();
+            }
+        } catch (e) {
+            console.warn('History back not supported:', e);
         }
     }
 }
@@ -76,7 +81,7 @@ function closeCalendarModal() {
 /**
  * Global Keyboard & Interaction Listeners
  */
-document.addEventListener('DOMContentLoaded', () => {
+function initNavigation() {
     // 1. Click Outside auto-closing triggers
     document.addEventListener('click', (event) => {
         const nav = document.getElementById('header-nav');
@@ -84,7 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Close menu drawer if tapping outside
         if (nav && nav.classList.contains('active')) {
-            if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+            // Using closest to safely handle clicked nodes even if they get detached/replaced
+            const clickedToggle = event.target.closest('#menu-toggle');
+            const clickedNav = event.target.closest('#header-nav');
+            if (!clickedToggle && !clickedNav) {
                 closeMobileMenu();
             }
         }
@@ -127,23 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
             closeMobileMenu();
         }
     }, { passive: true });
-});
+}
+
+// Guarantee execution whether script is deferred, loaded dynamically, or synchronously
+document.addEventListener('DOMContentLoaded', initNavigation);
 
 // 4. Back-button and Swipe-back gesture intercept
 window.addEventListener('popstate', (event) => {
-    // Close menu drawer if we popped back from active menu open state
-    if (!event.state || !event.state.menuOpen) {
-        const nav = document.getElementById('header-nav');
-        const toggle = document.getElementById('menu-toggle');
-        if (nav && nav.classList.contains('active')) {
-            nav.classList.remove('active');
-            if (toggle) {
-                toggle.classList.remove('active');
-                toggle.innerHTML = CLOSED_SVG;
-            }
-        }
-    }
-    
     // Close calendar overlay if we popped back from active modal open state
     if (!event.state || !event.state.modalOpen) {
         const modal = document.getElementById('modal-overlay');
