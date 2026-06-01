@@ -14,9 +14,15 @@ function createEvent(name, start, end, description = '') {
     if (!start || !end) return '';
     const dtStart = toICSDate(start);
     const dtEnd = toICSDate(end);
+    if (!dtStart || !dtEnd) return '';
     const dtStamp = toICSDate(new Date());
     const uid = generateUID(dtStart, name);
-    return `BEGIN:VEVENT\r\nCREATED:${dtStamp}\r\nDTSTART:${dtStart}\r\nDTEND:${dtEnd}\r\nDTSTAMP:${dtStamp}\r\nUID:${uid}\r\nSUMMARY:${name}\r\nDESCRIPTION:${description}\r\nEND:VEVENT\r\n`;
+    let evt = `BEGIN:VEVENT\r\nCREATED:${dtStamp}\r\nDTSTART:${dtStart}\r\nDTEND:${dtEnd}\r\nDTSTAMP:${dtStamp}\r\nUID:${uid}\r\nSUMMARY:${name}\r\n`;
+    if (description) {
+        evt += `DESCRIPTION:${description}\r\n`;
+    }
+    evt += `END:VEVENT\r\n`;
+    return evt;
 }
 
 function generateStaticICS() {
