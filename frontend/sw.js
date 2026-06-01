@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sunmooncal-v2';
+const CACHE_NAME = 'sunmooncal-v3';
 const ASSETS = [
   '/',
   '/index.html',
