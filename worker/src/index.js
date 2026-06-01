@@ -137,14 +137,14 @@ export default {
       if (parts.length >= 4) {
         lat = parseFloat(parts[2]);
         lng = parseFloat(parts[3]);
-        optionsParam = parts[4] || 'brahma,sunrise,sandhya,noon';
+        optionsParam = parts[4] || 'brahma,sunrise,sandhya,noon,moon_phases';
       }
     }
 
     if (lat === undefined || isNaN(lat) || isNaN(lng)) {
       lat = parseFloat(url.searchParams.get('lat'));
       lng = parseFloat(url.searchParams.get('lng'));
-      optionsParam = url.searchParams.get('options') || 'brahma,sunrise,sandhya,noon';
+      optionsParam = url.searchParams.get('options') || 'brahma,sunrise,sandhya,noon,moon_phases';
     }
     
     if (isNaN(lat) || isNaN(lng)) {
