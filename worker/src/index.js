@@ -130,14 +130,27 @@ X-APPLE-CALENDAR-COLOR:#FF9500
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    const lat = parseFloat(url.searchParams.get('lat'));
-    const lng = parseFloat(url.searchParams.get('lng'));
+    let lat, lng, optionsParam;
+
+    if (url.pathname.startsWith('/sync/')) {
+      const parts = url.pathname.replace('.ics', '').split('/');
+      if (parts.length >= 4) {
+        lat = parseFloat(parts[2]);
+        lng = parseFloat(parts[3]);
+        optionsParam = parts[4] || 'brahma,sunrise,sandhya,noon';
+      }
+    }
+
+    if (lat === undefined || isNaN(lat) || isNaN(lng)) {
+      lat = parseFloat(url.searchParams.get('lat'));
+      lng = parseFloat(url.searchParams.get('lng'));
+      optionsParam = url.searchParams.get('options') || 'brahma,sunrise,sandhya,noon';
+    }
     
     if (isNaN(lat) || isNaN(lng)) {
       return new Response("Missing or invalid lat/lng parameters", { status: 400 });
     }
     
-    const optionsParam = url.searchParams.get('options') || 'brahma,sunrise,sandhya,noon';
     const activeOptions = optionsParam.split(',');
     
     const icsContent = generateCalendar(lat, lng, activeOptions);
