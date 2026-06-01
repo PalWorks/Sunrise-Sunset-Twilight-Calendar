@@ -145,7 +145,7 @@ export default {
     return new Response(icsContent, {
       headers: {
         'Content-Type': 'text/calendar; charset=utf-8',
-        'Content-Disposition': 'attachment; filename="sunmooncal.ics"',
+        'Content-Disposition': 'inline; filename="sunmooncal.ics"',
         'Access-Control-Allow-Origin': '*'
       }
     });
