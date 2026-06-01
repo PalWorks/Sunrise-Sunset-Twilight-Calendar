@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Sun Moon Calendar",
+  "name": "SunMoonCal.com: Sunrise, Sunset & Sandhya for Yoga Sadhana + Calendar Sync",
+  "short_name": "SunMoonCal",
   "version": "1.0.0",
-  "description": "Precise solar and lunar timings mathematically calculated for your exact coordinates, with automatic travel sync.",
+  "description": "Calculate exact Sunrise, Sunset, Golden Hour & Brahma Muhurta timings for any location. Export PDF calendars or sync dynamically.",
   "action": {
     "default_popup": "index.html",
     "default_title": "Open Calendar"
