@@ -87,7 +87,7 @@ function updateDynamicUrls() {
     if (document.getElementById('opt-moon-times').checked) opts.push('moon_times');
     
     const optionsStr = opts.join(',');
-    const workerUrl = `https://api.sunmooncal.com/sync?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}&options=${optionsStr}`;
+    const workerUrl = `https://api.sunmooncal.com/sync.ics?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}&options=${optionsStr}`;
     const webcalUrl = workerUrl.replace('https://', 'webcal://').replace('http://', 'webcal://');
     
     // Apple Calendar prefers webcal:// protocol to trigger the native app
