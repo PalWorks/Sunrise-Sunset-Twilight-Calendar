@@ -24,7 +24,7 @@ function generateStaticICS() {
         alert("Please select a location first.");
         return;
     }
-    let ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//Yoga Sadhana Calendar//StaticBrowser//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:Yoga Sadhana (${currentCity})\r\n`;
+    let ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//SunMoonCal.com//StaticBrowser//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:SunMoonCal.com (${currentCity})\r\n`;
     const today = new Date();
     const btn = document.querySelector('.card-static button');
     const originalText = btn.innerHTML;

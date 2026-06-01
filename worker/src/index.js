@@ -37,10 +37,10 @@ SUMMARY:${name}
 function generateCalendar(lat, lng, activeOptions) {
   let ics = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Yoga Sadhana Calendar//Worker//EN
+PRODID:-//SunMoonCal.com//Worker//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Yoga Sadhana Calendar
+X-WR-CALNAME:SunMoonCal.com
 X-WR-CALDESC:Dynamic Solar and Sadhana Timings
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
