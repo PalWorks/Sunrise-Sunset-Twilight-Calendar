@@ -14,19 +14,24 @@ function createEvent(name, start, end, description = '') {
   if (!start || !end) return '';
   const dtStart = toICSDate(start);
   const dtEnd = toICSDate(end);
+  if (!dtStart || !dtEnd) return ''; // Prevent DTSTART:null for invalid dates
+
   const dtStamp = toICSDate(new Date());
   const uid = generateUID(dtStart, name);
 
-  return `BEGIN:VEVENT
+  let evt = `BEGIN:VEVENT
 CREATED:${dtStamp}
 DTSTART:${dtStart}
 DTEND:${dtEnd}
 DTSTAMP:${dtStamp}
 UID:${uid}
 SUMMARY:${name}
-DESCRIPTION:${description}
-END:VEVENT
 `;
+  if (description) {
+    evt += `DESCRIPTION:${description}\n`;
+  }
+  evt += `END:VEVENT\n`;
+  return evt;
 }
 
 function generateCalendar(lat, lng, activeOptions) {
@@ -37,6 +42,9 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:Yoga Sadhana Calendar
 X-WR-CALDESC:Dynamic Solar and Sadhana Timings
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+X-APPLE-CALENDAR-COLOR:#FF9500
 `;
 
   const today = new Date();

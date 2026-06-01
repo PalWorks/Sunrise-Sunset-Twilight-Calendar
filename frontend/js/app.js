@@ -89,10 +89,14 @@ function updateDynamicUrls() {
     const optionsStr = opts.join(',');
     const workerUrl = `https://api.sunmooncal.com/sync?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}&options=${optionsStr}`;
     const webcalUrl = workerUrl.replace('https://', 'webcal://').replace('http://', 'webcal://');
-    const googleCalUrl = `https://www.google.com/calendar/render?cid=${encodeURIComponent(webcalUrl)}`;
     
+    // Apple Calendar prefers webcal:// protocol to trigger the native app
     document.getElementById('btn-apple-cal').href = webcalUrl;
+    
+    // Google Calendar prefers a standard HTTPS URL for the cid parameter
+    const googleCalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(workerUrl)}`;
     document.getElementById('btn-google-cal').href = googleCalUrl;
+    
     document.getElementById('manual-sync-url').value = workerUrl;
 }
 
