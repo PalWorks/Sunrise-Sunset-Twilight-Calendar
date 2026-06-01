@@ -1,0 +1,23 @@
+# Sun Moon Calendar
+
+> A precision tool to calculate and export calendar events for Sunrise, Sunset, Brahma Muhurta, and Moon phases based on exact geographic coordinates.
+
+## About the Application
+Sun Moon Calendar dynamically generates an iCalendar (.ics) subscription based on a user's exact latitude and longitude. Instead of relying on static time tables, this application calculates astronomical data locally and on edge workers using trigonometry and the `suncalc` library.
+
+### Core Features
+- **Brahma Muhurta:** Calculates the exact 96-minute period before Sunrise, revered in yogic traditions for meditation.
+- **Sandhyas:** Calculates precise 48-minute windows around Sunrise and Sunset.
+- **Moon Phases:** Calculates exact timing for Poornima (Full Moon) and Amavasya (New Moon).
+- **Offline & Private:** All coordinates are processed statelessly on the edge. No location data is stored.
+
+## Technical Details
+- Frontend: Vanilla JavaScript, HTML5, CSS3, Leaflet Map.
+- Backend: Cloudflare Workers (Edge Computing) generating live `.ics` feeds.
+- Calculation Library: SunCalc.js
+
+## Relevant Pages
+- [Main Application](https://sunmooncal.com/)
+- [Definitions & Terms](https://sunmooncal.com/definitions)
+- [Mathematical Accuracy](https://sunmooncal.com/accuracy)
+- [About Us](https://sunmooncal.com/about)
