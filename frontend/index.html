@@ -263,12 +263,12 @@
         </div>
     </div>
 
-    <script src="navigation.js?v=3" defer></script>
-    <script src="js/app.js?v=3"></script>
+    <script src="navigation.js?v=4" defer></script>
+    <script src="js/app.js?v=4"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=3').then(registration => {
+                navigator.serviceWorker.register('/sw.js?v=4').then(registration => {
                     console.log('SW registered: ', registration);
                 }).catch(registrationError => {
                     console.log('SW registration failed: ', registrationError);
@@ -276,10 +276,10 @@
             });
         }
     </script>
-    <script src="js/api.js?v=3" defer></script>
-    <script src="js/calendar.js?v=3" defer></script>
-    <script src="js/export.js?v=3" defer></script>
-    <script src="js/map.js?v=3" defer></script>
+    <script src="js/api.js?v=4" defer></script>
+    <script src="js/calendar.js?v=4" defer></script>
+    <script src="js/export.js?v=4" defer></script>
+    <script src="js/map.js?v=4" defer></script>
     <script>
         // Set time format toggles from index UI
         function setTimeFormat(format) {

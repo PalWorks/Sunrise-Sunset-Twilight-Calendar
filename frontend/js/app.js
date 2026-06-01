@@ -87,14 +87,15 @@ function updateDynamicUrls() {
     if (document.getElementById('opt-moon-times').checked) opts.push('moon_times');
     
     const optionsStr = opts.join(',');
-    const workerUrl = `https://api.sunmooncal.com/sync/${currentLat.toFixed(6)}/${currentLng.toFixed(6)}/${optionsStr}.ics`;
+    const cacheBuster = Date.now();
+    const workerUrl = `https://api.sunmooncal.com/sync/${currentLat.toFixed(6)}/${currentLng.toFixed(6)}/${optionsStr}/${cacheBuster}.ics`;
     const webcalUrl = workerUrl.replace('https://', 'webcal://');
     
     // Apple Calendar prefers webcal:// protocol to trigger the native app
     document.getElementById('btn-apple-cal').href = webcalUrl;
     
-    // Google Calendar prefers a standard HTTPS URL for the cid parameter
-    const googleCalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(workerUrl)}`;
+    // Google Calendar sometimes rejects HTTPS links if previously cached as failing. webcal:// is safer.
+    const googleCalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcalUrl)}`;
     document.getElementById('btn-google-cal').href = googleCalUrl;
     
     document.getElementById('manual-sync-url').value = workerUrl;
