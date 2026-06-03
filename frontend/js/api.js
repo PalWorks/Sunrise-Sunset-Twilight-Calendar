@@ -217,6 +217,10 @@ async function finalizeLocationUpdate(lat, lng, locName) {
     currentLng = lng;
     currentLocationName = locName;
     
+    localStorage.setItem('savedLat', lat);
+    localStorage.setItem('savedLng', lng);
+    localStorage.setItem('savedLocName', locName);
+    
     if (typeof L !== 'undefined') {
         const pulseIcon = L.divIcon({
             className: 'custom-pulse-icon',
