@@ -55,7 +55,7 @@ X-APPLE-CALENDAR-COLOR:#FF9500
     
     const times = SunCalc.getTimes(current, lat, lng);
     
-    if (activeOptions.includes('noon') && times.solarNoon) {
+    if (activeOptions.includes('noon') && times.solarNoon && !isNaN(times.solarNoon.getTime())) {
       const noonStart = new Date(times.solarNoon.getTime() - 5 * 60000);
       const noonEnd = new Date(times.solarNoon.getTime() + 5 * 60000);
       ics += createEvent("Solar Noon Peak", noonStart, noonEnd, "Solar Transit Peak");
@@ -119,6 +119,37 @@ X-APPLE-CALENDAR-COLOR:#FF9500
       }
       if (times.nauticalDusk && times.night) {
         ics += createEvent("Astronomical Twilight (Evening)", times.nauticalDusk, times.night);
+      }
+    }
+    
+    if (activeOptions.includes('moon_phases')) {
+      const moonIllum = SunCalc.getMoonIllumination(current);
+      const phase = moonIllum.phase;
+      let phaseName = "";
+      if (phase < 0.03 || phase > 0.97) {
+        phaseName = `New Moon (${(moonIllum.fraction * 100).toFixed(0)}%)`;
+      } else if (phase > 0.22 && phase < 0.28) {
+        phaseName = `First Quarter Moon (${(moonIllum.fraction * 100).toFixed(0)}%)`;
+      } else if (phase > 0.47 && phase < 0.53) {
+        phaseName = `Full Moon (${(moonIllum.fraction * 100).toFixed(0)}%)`;
+      } else if (phase > 0.72 && phase < 0.78) {
+        phaseName = `Last Quarter Moon (${(moonIllum.fraction * 100).toFixed(0)}%)`;
+      }
+      
+      if (phaseName) {
+        const moonStart = new Date(current.getFullYear(), current.getMonth(), current.getDate(), 12, 0, 0);
+        const moonEnd = new Date(moonStart.getTime() + 15 * 60000);
+        ics += createEvent(phaseName, moonStart, moonEnd, `Moon Phase: ${phaseName}`);
+      }
+    }
+    
+    if (activeOptions.includes('moon_times')) {
+      const moonTimes = SunCalc.getMoonTimes(current, lat, lng);
+      if (moonTimes.rise && !isNaN(moonTimes.rise.getTime())) {
+        ics += createEvent("Moonrise", moonTimes.rise, new Date(moonTimes.rise.getTime() + 15 * 60000));
+      }
+      if (moonTimes.set && !isNaN(moonTimes.set.getTime())) {
+        ics += createEvent("Moonset", moonTimes.set, new Date(moonTimes.set.getTime() + 15 * 60000));
       }
     }
   }

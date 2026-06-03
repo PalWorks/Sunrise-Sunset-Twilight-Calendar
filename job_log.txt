@@ -1,0 +1,165 @@
+Deploy Frontend to Pages	Set up job	﻿2026-05-31T16:30:08.4089426Z Current runner version: '2.334.0'
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4114421Z ##[group]Runner Image Provisioner
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4115324Z Hosted Compute Agent
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4115948Z Version: 20260520.533
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4116704Z Commit: 189110e25284a9812c124fd27b339e2fb4f2f9db
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4117484Z Build Date: 2026-05-20T17:44:04Z
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4118261Z Worker ID: {1ab21f09-ac8d-4378-a458-c798566663b1}
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4119026Z Azure Region: westus3
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4120091Z ##[endgroup]
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4121722Z ##[group]Operating System
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4122441Z Ubuntu
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4123070Z 24.04.4
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4123615Z LTS
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4124144Z ##[endgroup]
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4124747Z ##[group]Runner Image
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4125412Z Image: ubuntu-24.04
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4125981Z Version: 20260525.161.1
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4127112Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260525.161/images/ubuntu/Ubuntu2404-Readme.md
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4128891Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260525.161
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4130202Z ##[endgroup]
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4131509Z ##[group]GITHUB_TOKEN Permissions
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4133351Z Contents: read
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4134096Z Deployments: write
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4134762Z Metadata: read
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4135341Z ##[endgroup]
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4137453Z Secret source: Actions
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4138234Z Prepare workflow directory
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4477732Z Prepare all required actions
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.4516296Z Getting action download info
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.8562911Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:08.9822305Z Download action repository 'cloudflare/pages-action@v1' (SHA:f0a1cd58cd66095dee69bfa18fa5efd1dde93bca)
+Deploy Frontend to Pages	Set up job	2026-05-31T16:30:09.6471624Z Complete job name: Deploy Frontend to Pages
+Deploy Frontend to Pages	Run actions/checkout@v4	﻿2026-05-31T16:30:09.7218149Z ##[group]Run actions/checkout@v4
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7219417Z with:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7220087Z   repository: PalWorks/Sunrise-Sunset-Twilight-Calendar
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7224681Z   token: ***
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7225202Z   ssh-strict: true
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7225712Z   ssh-user: git
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7226231Z   persist-credentials: true
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7226798Z   clean: true
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7227307Z   sparse-checkout-cone-mode: true
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7227909Z   fetch-depth: 1
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7228426Z   fetch-tags: false
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7228953Z   show-progress: true
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7229608Z   lfs: false
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7230100Z   submodules: false
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7230644Z   set-safe-directory: true
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.7231494Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8369028Z Syncing repository: PalWorks/Sunrise-Sunset-Twilight-Calendar
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8371804Z ##[group]Getting Git version info
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8373020Z Working directory is '/home/runner/work/Sunrise-Sunset-Twilight-Calendar/Sunrise-Sunset-Twilight-Calendar'
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8374621Z [command]/usr/bin/git version
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8486345Z git version 2.54.0
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8513849Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8536963Z Temporarily overriding HOME='/home/runner/work/_temp/5adc0aba-5e2c-4d7c-a2b1-19bab6b0f834' before making global git config changes
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8542816Z Adding repository directory to the temporary git global config as a safe directory
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8544575Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Sunrise-Sunset-Twilight-Calendar/Sunrise-Sunset-Twilight-Calendar
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8596618Z Deleting the contents of '/home/runner/work/Sunrise-Sunset-Twilight-Calendar/Sunrise-Sunset-Twilight-Calendar'
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8600756Z ##[group]Initializing the repository
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8606250Z [command]/usr/bin/git init /home/runner/work/Sunrise-Sunset-Twilight-Calendar/Sunrise-Sunset-Twilight-Calendar
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8733173Z hint: Using 'master' as the name for the initial branch. This default branch name
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8735654Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8736900Z hint: to use in all of your new repositories, which will suppress this warning,
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8737798Z hint: call:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8738283Z hint:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8739047Z hint: 	git config --global init.defaultBranch <name>
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8740565Z hint:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8741711Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8743520Z hint: 'development'. The just-created branch can be renamed via this command:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8744394Z hint:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8744901Z hint: 	git branch -m <name>
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8745837Z hint:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8747095Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8749895Z Initialized empty Git repository in /home/runner/work/Sunrise-Sunset-Twilight-Calendar/Sunrise-Sunset-Twilight-Calendar/.git/
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8753564Z [command]/usr/bin/git remote add origin https://github.com/PalWorks/Sunrise-Sunset-Twilight-Calendar
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8797372Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8798313Z ##[group]Disabling automatic garbage collection
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8801857Z [command]/usr/bin/git config --local gc.auto 0
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8830456Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8831388Z ##[group]Setting up auth
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8837172Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.8871093Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9289433Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9319826Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9540263Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9574142Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9797014Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9832681Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9840736Z ##[group]Fetching the repository
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:09.9842327Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cf7f757f27a3a73dc4278e5dcef780511c3d3ad9:refs/remotes/origin/master
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.8947385Z From https://github.com/PalWorks/Sunrise-Sunset-Twilight-Calendar
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.8950359Z  * [new ref]         cf7f757f27a3a73dc4278e5dcef780511c3d3ad9 -> origin/master
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9001108Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9003973Z ##[group]Determining the checkout info
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9006801Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9008874Z [command]/usr/bin/git sparse-checkout disable
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9063213Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9094693Z ##[group]Checking out the ref
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9098055Z [command]/usr/bin/git checkout --progress --force -B master refs/remotes/origin/master
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9797698Z Reset branch 'master'
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9800147Z branch 'master' set up to track 'origin/master'.
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9810948Z ##[endgroup]
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9857123Z [command]/usr/bin/git log -1 --format=%H
+Deploy Frontend to Pages	Run actions/checkout@v4	2026-05-31T16:30:10.9876470Z cf7f757f27a3a73dc4278e5dcef780511c3d3ad9
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	﻿2026-05-31T16:30:11.0162163Z ##[group]Run cloudflare/pages-action@v1
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0163540Z with:
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0165157Z   apiToken: ***
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0166264Z   accountId: 96ec2a311affbd387b884673c0e84eb8
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0167983Z   projectName: sunmooncal
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0169389Z   directory: frontend
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0181578Z   gitHubToken: ***
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0182605Z   branch: master
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0183556Z   wranglerVersion: 2
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:11.0184530Z ##[endgroup]
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:16.7615756Z npm warn exec The following package was not found and will be installed: wrangler@2.21.3
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.0343566Z npm warn deprecated rollup-plugin-inject@3.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-inject.
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.1825132Z npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.2354002Z npm warn deprecated @miniflare/runner-vm@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.2535818Z npm warn deprecated @miniflare/web-sockets@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.2691872Z npm warn deprecated @miniflare/storage-file@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.2694617Z npm warn deprecated @miniflare/sites@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.2698874Z npm warn deprecated @miniflare/scheduler@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.2704478Z npm warn deprecated @miniflare/html-rewriter@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.2944568Z npm warn deprecated @miniflare/r2@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3029054Z npm warn deprecated @miniflare/kv@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3164173Z npm warn deprecated @miniflare/cli-parser@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3234294Z npm warn deprecated @miniflare/cache@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3544141Z npm warn deprecated @miniflare/watcher@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3625435Z npm warn deprecated @miniflare/queues@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3667213Z npm warn deprecated @miniflare/storage-memory@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3717496Z npm warn deprecated @miniflare/http-server@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3803255Z npm warn deprecated @miniflare/shared@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.3996972Z npm warn deprecated @miniflare/d1@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.4234560Z npm warn deprecated @miniflare/durable-objects@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.4315163Z npm warn deprecated miniflare@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:21.5224967Z npm warn deprecated @miniflare/core@2.14.4: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:24.6585808Z npm warn deprecated wrangler@2.21.3: Wrangler v2 is no longer supported. Please upgrade to Wrangler v4
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:26.7020871Z Uploading... (12/21)
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:27.2931111Z Uploading... (15/21)
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:27.2980779Z Uploading... (18/21)
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:27.3103673Z Uploading... (21/21)
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:27.3105922Z ✨ Success! Uploaded 9 files (12 already uploaded) (1.27 sec)
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:27.3107084Z 
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:29.2161323Z ✨ Deployment complete! Take a peek over at https://82949c2e.sunmooncal.pages.dev
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:29.3454436Z npm notice
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:29.3455690Z npm notice New major version of npm available! 10.9.8 -> 11.16.0
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:29.3456640Z npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:29.3457702Z npm notice To update run: npm install -g npm@11.16.0
+Deploy Frontend to Pages	Deploy to Cloudflare Pages	2026-05-31T16:30:29.3458467Z npm notice
+Deploy Frontend to Pages	Post Run actions/checkout@v4	﻿2026-05-31T16:30:29.9966868Z Post job cleanup.
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.0951357Z [command]/usr/bin/git version
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.0988130Z git version 2.54.0
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1033394Z Temporarily overriding HOME='/home/runner/work/_temp/badb0fe7-fc22-47ba-9579-d65ed6ef24ff' before making global git config changes
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1034614Z Adding repository directory to the temporary git global config as a safe directory
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1039719Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Sunrise-Sunset-Twilight-Calendar/Sunrise-Sunset-Twilight-Calendar
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1075488Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1107907Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1328448Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1352608Z http.https://github.com/.extraheader
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1365117Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1395219Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1614012Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Deploy Frontend to Pages	Post Run actions/checkout@v4	2026-05-31T16:30:30.1644433Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Deploy Frontend to Pages	Complete job	﻿2026-05-31T16:30:30.1985516Z Cleaning up orphan processes
+Deploy Frontend to Pages	Complete job	2026-05-31T16:30:30.2286860Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4, cloudflare/pages-action@v1. Actions will be forced to run with Node.js 24 by default starting June 16th, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

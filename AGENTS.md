@@ -26,6 +26,9 @@ The backend logic located in the `worker` directory is engineered specifically f
 ### 3. Absolute Privacy
 Agents must ensure that all geocoding and coordinate processing remains strictly stateless. No user location data should ever be stored, logged, or transmitted to third party analytics services.
 
+### 4. Omnichannel Compatibility
+Whatever changes or updates are made to the codebase, they must uniformly cater to the website, the Progressive Web App (PWA), and the Chrome Extension simultaneously. Solutions must never be implemented for one channel if they inadvertently break or neglect the other channels. The shared frontend architecture must be respected at all times.
+
 ## Auditing and Refactoring Guidelines
 
 When requested to perform a codebase audit, agents should prioritize the following aspects:

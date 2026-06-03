@@ -14,9 +14,12 @@ function closeVisualCalendar() {
 }
 
 function updateMonthPicker() {
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    document.getElementById('month-picker').value = `${year}-${month}`;
+    const picker = document.getElementById('month-picker');
+    if (picker) {
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        picker.value = `${year}-${month}`;
+    }
 }
 
 function changeMonth(offset) {
@@ -110,7 +113,7 @@ function renderCalendar() {
         const events = [];
         const dots = [];
 
-        if (document.getElementById('opt-brahma').checked && times.sunrise) {
+        if (document.getElementById('opt-brahma')?.checked && times.sunrise) {
             const start = new Date(times.sunrise.getTime() - 96 * 60000);
             const end = new Date(times.sunrise.getTime() - 48 * 60000);
             const label = `Brahma M.`;
@@ -118,31 +121,31 @@ function renderCalendar() {
             events.push({ name: label, time: timeVal, class: 'e-brahma' });
             dots.push('dot-brahma');
         }
-        if (document.getElementById('opt-sunrise').checked && times.sunrise) {
+        if (document.getElementById('opt-sunrise')?.checked && times.sunrise) {
             events.push({ name: 'Sunrise', time: formatTime(times.sunrise), class: 'e-sun' });
             dots.push('dot-sun');
         }
-        if (document.getElementById('opt-sandhya').checked && times.sunrise) {
+        if (document.getElementById('opt-sandhya')?.checked && times.sunrise) {
             const start = new Date(times.sunrise.getTime() - 24 * 60000);
             const end = new Date(times.sunrise.getTime() + 24 * 60000);
             events.push({ name: 'M. Sandhya', time: `${formatTime(start)} - ${formatTime(end)}`, class: 'e-sandhya' });
             dots.push('dot-sandhya');
         }
-        if (document.getElementById('opt-noon').checked && times.solarNoon) {
+        if (document.getElementById('opt-noon')?.checked && times.solarNoon) {
             events.push({ name: 'Solar Noon', time: formatTime(times.solarNoon), class: 'e-noon' });
             dots.push('dot-noon');
         }
-        if (document.getElementById('opt-sandhya').checked && times.sunset) {
+        if (document.getElementById('opt-sandhya')?.checked && times.sunset) {
             const start = new Date(times.sunset.getTime() - 24 * 60000);
             const end = new Date(times.sunset.getTime() + 24 * 60000);
             events.push({ name: 'E. Sandhya', time: `${formatTime(start)} - ${formatTime(end)}`, class: 'e-sandhya' });
             dots.push('dot-sandhya');
         }
-        if (document.getElementById('opt-sunrise').checked && times.sunset) {
+        if (document.getElementById('opt-sunrise')?.checked && times.sunset) {
             events.push({ name: 'Sunset', time: formatTime(times.sunset), class: 'e-sun' });
             dots.push('dot-sun');
         }
-        if (document.getElementById('opt-civil').checked) {
+        if (document.getElementById('opt-civil')?.checked) {
             if (times.dawn) {
                 events.push({ name: 'Civil Dawn', time: formatTime(times.dawn), class: 'e-twilight' });
                 dots.push('dot-twilight');
@@ -152,7 +155,7 @@ function renderCalendar() {
                 dots.push('dot-twilight');
             }
         }
-        if (document.getElementById('opt-nautical').checked) {
+        if (document.getElementById('opt-nautical')?.checked) {
             if (times.nauticalDawn) {
                 events.push({ name: 'Naut. Dawn', time: formatTime(times.nauticalDawn), class: 'e-twilight' });
                 dots.push('dot-twilight');
@@ -162,7 +165,7 @@ function renderCalendar() {
                 dots.push('dot-twilight');
             }
         }
-        if (document.getElementById('opt-astronomical').checked) {
+        if (document.getElementById('opt-astronomical')?.checked) {
             if (times.nightEnd) {
                 events.push({ name: 'Astro Dawn', time: formatTime(times.nightEnd), class: 'e-twilight' });
                 dots.push('dot-twilight');

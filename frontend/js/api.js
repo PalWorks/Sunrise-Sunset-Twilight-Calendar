@@ -81,8 +81,15 @@ async function searchLocationByText() {
 
     input.style.opacity = '0.5';
 
+    if (currentAbortController) {
+        currentAbortController.abort();
+    }
+    currentAbortController = new AbortController();
+
     try {
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(val)}`);
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(val)}&email=contact@sunmooncal.com`, {
+            signal: currentAbortController.signal
+        });
         const data = await res.json();
 
         if (data && data.length > 0) {
@@ -101,8 +108,10 @@ async function searchLocationByText() {
             alert('City not found. Please try another name.');
         }
     } catch (err) {
-        alert('Network error fetching location. Please try again.');
-        console.error('[API Error] Geocoding fetch failed:', err);
+        if (err.name !== 'AbortError') {
+            alert('Network error fetching location. Please try again.');
+            console.error('[API Error] Geocoding fetch failed:', err);
+        }
     } finally {
         input.style.opacity = '1';
     }
@@ -121,7 +130,13 @@ async function searchLocationByCoords() {
     const { lat, lng } = parsed;
     
     input.style.opacity = '0.5';
-    await updateLocationFromCoords(lat, lng);
+    
+    if (currentAbortController) {
+        currentAbortController.abort();
+    }
+    currentAbortController = new AbortController();
+
+    await updateLocationFromCoords(lat, lng, currentAbortController.signal);
     input.style.opacity = '1';
 }
 
@@ -170,9 +185,10 @@ function parseLatLngParts(latStr, lngStr) {
     return { lat, lng };
 }
 
-async function updateLocationFromCoords(lat, lng) {
+async function updateLocationFromCoords(lat, lng, signal = null) {
     try {
-        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10`);
+        const fetchOpts = signal ? { signal } : {};
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&email=contact@sunmooncal.com`, fetchOpts);
         const data = await res.json();
         
         let locName = "Selected Location";
@@ -188,9 +204,11 @@ async function updateLocationFromCoords(lat, lng) {
 
         await finalizeLocationUpdate(lat, lng, locName);
     } catch (err) {
-        console.error('[API Error] Reverse geocoding failed:', err);
-        alert('Could not resolve city name for coordinates. Proceeding with raw coordinates.');
-        await finalizeLocationUpdate(lat, lng, "Map Location");
+        if (err.name !== 'AbortError') {
+            console.error('[API Error] Reverse geocoding failed:', err);
+            alert('Could not resolve city name for coordinates. Proceeding with raw coordinates.');
+            await finalizeLocationUpdate(lat, lng, "Map Location");
+        }
     }
 }
 
@@ -199,21 +217,32 @@ async function finalizeLocationUpdate(lat, lng, locName) {
     currentLng = lng;
     currentLocationName = locName;
     
-    const pulseIcon = L.divIcon({
-        className: 'custom-pulse-icon',
-        html: '<div class="pulse-ring"></div><div class="pulse-dot"></div>',
-        iconSize: [24, 24],
-        iconAnchor: [12, 12]
-    });
-    
-    map.setView([lat, lng], 10);
-    if(marker) map.removeLayer(marker);
-    marker = L.marker([lat, lng], {icon: pulseIcon}).addTo(map);
+    if (typeof L !== 'undefined') {
+        const pulseIcon = L.divIcon({
+            className: 'custom-pulse-icon',
+            html: '<div class="pulse-ring"></div><div class="pulse-dot"></div>',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+        });
+        
+        if (typeof map !== 'undefined' && map !== null) {
+            map.setView([lat, lng], 10);
+            if(marker) map.removeLayer(marker);
+            marker = L.marker([lat, lng], {icon: pulseIcon}).addTo(map);
+        }
+    }
 
-    document.getElementById('action-grid').classList.add('active');
+    const actionGrid = document.getElementById('action-grid');
+    if (actionGrid) actionGrid.classList.add('active');
     
-    document.getElementById('input-location').value = locName;
-    document.getElementById('input-coords').value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    const actionStack = document.getElementById('action-stack-container');
+    if (actionStack) actionStack.classList.remove('disabled');
+    
+    const inputLocation = document.getElementById('input-location');
+    if (inputLocation) inputLocation.value = locName;
+    
+    const inputCoords = document.getElementById('input-coords');
+    if (inputCoords) inputCoords.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
     
     const tzEl = document.getElementById('meta-tz');
     const tzOffsetEl = document.getElementById('meta-tz-offset');
@@ -248,7 +277,10 @@ async function finalizeLocationUpdate(lat, lng, locName) {
 
     updateDynamicUrls();
 
-    if (document.getElementById('modal-overlay').style.display === 'flex') {
-        renderCalendar();
+    const overlay = document.getElementById('modal-overlay');
+    if (overlay && overlay.style.display === 'flex') {
+        if (typeof renderCalendar === 'function') {
+            renderCalendar();
+        }
     }
 }

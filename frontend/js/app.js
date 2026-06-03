@@ -15,6 +15,83 @@ function initDefaults() {
     // Populate month picker defaults
     updateMonthPicker();
     
+    // Parse URL parameters for preview from extension
+    const params = new URLSearchParams(window.location.search);
+    const latStr = params.get('lat');
+    const lngStr = params.get('lng');
+    const optsStr = params.get('opts');
+    const actionStr = params.get('action');
+
+    if (latStr && lngStr && actionStr === 'preview') {
+        const latFloat = parseFloat(latStr);
+        const lngFloat = parseFloat(lngStr);
+        if (!isNaN(latFloat) && !isNaN(lngFloat)) {
+            // Apply options
+            if (optsStr) {
+                const optArray = optsStr.split(',');
+                const optMap = {
+                    'brahma': 'opt-brahma',
+                    'sun': 'opt-sunrise',
+                    'sandhya': 'opt-sandhya',
+                    'noon': 'opt-noon',
+                    'civil': 'opt-civil',
+                    'nautical': 'opt-nautical',
+                    'astronomical': 'opt-astronomical',
+                    'moon_phases': 'opt-moon-phases',
+                    'moon_times': 'opt-moon-times',
+                    'moon_illumination': 'opt-moon-illumination'
+                };
+                
+                // First uncheck all
+                Object.values(optMap).forEach(id => {
+                    const cb = document.getElementById(id);
+                    if (cb) cb.checked = false;
+                });
+                
+                // Then check the ones in the URL
+                optArray.forEach(opt => {
+                    const id = optMap[opt];
+                    if (id) {
+                        const cb = document.getElementById(id);
+                        if (cb) cb.checked = true;
+                    }
+                });
+            }
+            
+            // Populate coordinates and trigger search
+            const inputCoords = document.getElementById('input-coords');
+            if (inputCoords) {
+                inputCoords.value = `${latFloat}, ${lngFloat}`;
+                setTimeout(() => {
+                    if (typeof searchLocationByCoords === 'function') {
+                        searchLocationByCoords().then(() => {
+                            if (typeof showVisualCalendar === 'function') {
+                                showVisualCalendar();
+                            }
+                        });
+                    }
+                }, 300);
+            }
+        }
+    } else {
+        // If not a preview action, try restoring from localStorage
+        const savedLat = localStorage.getItem('savedLat');
+        const savedLng = localStorage.getItem('savedLng');
+        const savedLocName = localStorage.getItem('savedLocName');
+        
+        if (savedLat && savedLng && savedLocName) {
+            const latF = parseFloat(savedLat);
+            const lngF = parseFloat(savedLng);
+            if (!isNaN(latF) && !isNaN(lngF)) {
+                setTimeout(() => {
+                    if (typeof finalizeLocationUpdate === 'function') {
+                        finalizeLocationUpdate(latF, lngF, savedLocName);
+                    }
+                }, 100);
+            }
+        }
+    }
+    
     // Add event listeners for dynamic url updates when options change
     document.querySelectorAll('.opt-group input').forEach(el => {
         el.addEventListener('change', () => {
@@ -25,31 +102,7 @@ function initDefaults() {
         });
     });
     
-    // Check if running as a Chrome Extension
-    const isExtension = typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.id;
-    if (isExtension) {
-        // Find the dynamic sync card (it's the one before the visual calendar card, wait, it has an id? No, it's the second card in action-grid)
-        const cards = document.querySelectorAll('#action-grid .card');
-        if (cards.length >= 2) {
-            cards[1].innerHTML = `
-                <div class="card-header-row">
-                    <h2>Live Background Sync</h2>
-                    <span class="tag tag-dynamic" style="background: var(--bg-tertiary); color: var(--text-main); border: 1px solid var(--border-color);">Chrome Extension</span>
-                </div>
-                <p>Silently update your Google Calendar in the background whenever you travel. 100% private. No data sent to our servers.</p>
-                <button class="btn-action" onclick="enableExtensionSync()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l-3.32 3.32"/></svg>
-                    Enable Auto-Sync
-                </button>
-            `;
-        }
-        const extPromo = document.querySelector('.card-extension');
-        if (extPromo) extPromo.style.display = 'none';
-    }
-}
 
-function enableExtensionSync() {
-    alert("In a full implementation, this would trigger chrome.identity.getAuthToken to authenticate with Google Calendar.");
 }
 
 function getLocation() {
@@ -76,15 +129,15 @@ function updateDynamicUrls() {
     if (currentLat === null || currentLng === null) return;
     
     const opts = [];
-    if (document.getElementById('opt-brahma').checked) opts.push('brahma');
-    if (document.getElementById('opt-sunrise').checked) opts.push('sun');
-    if (document.getElementById('opt-sandhya').checked) opts.push('sandhya');
-    if (document.getElementById('opt-noon').checked) opts.push('noon');
-    if (document.getElementById('opt-civil').checked) opts.push('civil');
-    if (document.getElementById('opt-nautical').checked) opts.push('nautical');
-    if (document.getElementById('opt-astronomical').checked) opts.push('astronomical');
-    if (document.getElementById('opt-moon-phases').checked) opts.push('moon_phases');
-    if (document.getElementById('opt-moon-times').checked) opts.push('moon_times');
+    if (document.getElementById('opt-brahma')?.checked) opts.push('brahma');
+    if (document.getElementById('opt-sunrise')?.checked) opts.push('sun');
+    if (document.getElementById('opt-sandhya')?.checked) opts.push('sandhya');
+    if (document.getElementById('opt-noon')?.checked) opts.push('noon');
+    if (document.getElementById('opt-civil')?.checked) opts.push('civil');
+    if (document.getElementById('opt-nautical')?.checked) opts.push('nautical');
+    if (document.getElementById('opt-astronomical')?.checked) opts.push('astronomical');
+    if (document.getElementById('opt-moon-phases')?.checked) opts.push('moon_phases');
+    if (document.getElementById('opt-moon-times')?.checked) opts.push('moon_times');
     
     const optionsStr = opts.join(',');
     const cacheBuster = Date.now();
@@ -92,13 +145,22 @@ function updateDynamicUrls() {
     const webcalUrl = workerUrl.replace('https://', 'webcal://');
     
     // Apple Calendar prefers webcal:// protocol to trigger the native app
-    document.getElementById('btn-apple-cal').href = webcalUrl;
+    const btnApple = document.getElementById('btn-apple-cal');
+    if (btnApple) btnApple.href = webcalUrl;
     
     // Google Calendar sometimes rejects HTTPS links if previously cached as failing. webcal:// is safer.
     const googleCalUrl = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcalUrl)}`;
-    document.getElementById('btn-google-cal').href = googleCalUrl;
+    const btnGoogle = document.getElementById('btn-google-cal');
+    if (btnGoogle) btnGoogle.href = googleCalUrl;
     
-    document.getElementById('manual-sync-url').value = workerUrl;
+    const inputUrl = document.getElementById('manual-sync-url');
+    if (inputUrl) inputUrl.value = workerUrl;
+
+    // External Preview link for the Extension popup
+    const btnPreview = document.getElementById('btn-preview-external');
+    if (btnPreview) {
+        btnPreview.href = `https://sunmooncal.com/?lat=${currentLat.toFixed(6)}&lng=${currentLng.toFixed(6)}&opts=${optionsStr}&action=preview`;
+    }
 }
 
 function subscribeDynamic(e) {
@@ -108,10 +170,12 @@ function subscribeDynamic(e) {
     updateDynamicUrls();
     
     const drawer = document.getElementById('dynamic-sync-drawer');
-    if (drawer.style.display === 'none' || !drawer.style.display) {
-        drawer.style.display = 'flex';
-    } else {
-        drawer.style.display = 'none';
+    if (drawer) {
+        if (drawer.style.display === 'none' || !drawer.style.display) {
+            drawer.style.display = 'flex';
+        } else {
+            drawer.style.display = 'none';
+        }
     }
 }
 
@@ -208,3 +272,63 @@ if (isIos() && !isInStandaloneMode()) {
         });
     }
 }
+
+// Extension detection and UI adjustment no longer needed here as popup.html handles it via dedicated DOM.
+
+// Error Toast Notification System
+function showError(message) {
+    let toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+            width: max-content;
+            max-width: 90vw;
+        `;
+        document.body.appendChild(toastContainer);
+    }
+
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        background: #ef4444;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        pointer-events: auto;
+        text-align: center;
+    `;
+    toast.textContent = message;
+    
+    toastContainer.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+    }, 10);
+
+    // Animate out and remove
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-20px)';
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
+}
+
+// Override native alert for our app to use the new toast system
+window.alert = showError;

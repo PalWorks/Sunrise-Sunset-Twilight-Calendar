@@ -5,23 +5,14 @@
   "version": "1.0.0",
   "description": "Calculate exact Sunrise, Sunset, Golden Hour & Brahma Muhurta timings for any location. Export PDF calendars or sync dynamically.",
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "popup.html",
     "default_title": "Open Calendar"
-  },
-  "background": {
-    "service_worker": "js/background.js"
   },
   "permissions": [
     "geolocation",
-    "identity",
     "alarms"
   ],
-  "oauth2": {
-    "client_id": "REPLACE_WITH_YOUR_GOOGLE_OAUTH_CLIENT_ID",
-    "scopes": [
-      "https://www.googleapis.com/auth/calendar.events"
-    ]
-  },
+
   "icons": {
     "16": "icon-192.png",
     "48": "icon-192.png",

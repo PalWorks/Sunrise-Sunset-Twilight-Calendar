@@ -32,21 +32,24 @@ function generateStaticICS() {
     }
     let ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//SunMoonCal.com//StaticBrowser//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:SunMoonCal.com (${currentCity})\r\n`;
     const today = new Date();
-    const btn = document.querySelector('.card-static button');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = 'Generating...';
+    const btn = document.getElementById('btn-download-ics');
+    let originalText = '';
+    if (btn) {
+        originalText = btn.innerHTML;
+        btn.innerHTML = 'Generating...';
+    }
     
     setTimeout(() => {
         for (let i = 0; i < 365; i++) {
             const current = new Date(today.getFullYear(), today.getMonth(), today.getDate() + i, 12, 0, 0);
             const times = SunCalc.getTimes(current, currentLat, currentLng);
             
-            if (document.getElementById('opt-noon').checked && times.solarNoon) {
+            if (document.getElementById('opt-noon')?.checked && times.solarNoon) {
                 const noonStart = new Date(times.solarNoon.getTime() - 5 * 60000);
                 const noonEnd = new Date(times.solarNoon.getTime() + 5 * 60000);
                 ics += createEvent("Solar Noon", noonStart, noonEnd, "Solar Transit Peak");
             }
-            if (document.getElementById('opt-sunrise').checked) {
+            if (document.getElementById('opt-sunrise')?.checked) {
                 if (times.sunrise) {
                     ics += createEvent("Sunrise", times.sunrise, new Date(times.sunrise.getTime() + 15 * 60000));
                 }
@@ -54,12 +57,12 @@ function generateStaticICS() {
                     ics += createEvent("Sunset", times.sunset, new Date(times.sunset.getTime() + 15 * 60000));
                 }
             }
-            if (document.getElementById('opt-brahma').checked && times.sunrise) {
+            if (document.getElementById('opt-brahma')?.checked && times.sunrise) {
                 const brahmaStart = new Date(times.sunrise.getTime() - 96 * 60000);
                 const brahmaEnd = new Date(times.sunrise.getTime() - 48 * 60000);
                 ics += createEvent("Brahma Muhurta", brahmaStart, brahmaEnd, "Sacred pre-sunrise period for spiritual practices.");
             }
-            if (document.getElementById('opt-sandhya').checked) {
+            if (document.getElementById('opt-sandhya')?.checked) {
                 if (times.sunrise) {
                     ics += createEvent("Morning Sandhya", new Date(times.sunrise.getTime() - 24 * 60000), new Date(times.sunrise.getTime() + 24 * 60000), "Auspicious morning junction.");
                 }
@@ -67,7 +70,7 @@ function generateStaticICS() {
                     ics += createEvent("Evening Sandhya", new Date(times.sunset.getTime() - 24 * 60000), new Date(times.sunset.getTime() + 24 * 60000), "Auspicious evening junction.");
                 }
             }
-            if (document.getElementById('opt-civil').checked) {
+            if (document.getElementById('opt-civil')?.checked) {
                 if (times.dawn && times.sunrise) {
                     ics += createEvent("Civil Dawn", times.dawn, times.sunrise);
                 }
@@ -75,7 +78,7 @@ function generateStaticICS() {
                     ics += createEvent("Civil Dusk", times.sunset, times.dusk);
                 }
             }
-            if (document.getElementById('opt-nautical').checked) {
+            if (document.getElementById('opt-nautical')?.checked) {
                 if (times.nauticalDawn && times.dawn) {
                     ics += createEvent("Nautical Dawn", times.nauticalDawn, times.dawn);
                 }
@@ -83,7 +86,7 @@ function generateStaticICS() {
                     ics += createEvent("Nautical Dusk", times.dusk, times.nauticalDusk);
                 }
             }
-            if (document.getElementById('opt-astronomical').checked) {
+            if (document.getElementById('opt-astronomical')?.checked) {
                 if (times.nightEnd && times.nauticalDawn) {
                     ics += createEvent("Astronomical Dawn", times.nightEnd, times.nauticalDawn);
                 }
@@ -92,7 +95,7 @@ function generateStaticICS() {
                 }
             }
             
-            if (document.getElementById('opt-moon-phases').checked) {
+            if (document.getElementById('opt-moon-phases')?.checked) {
                 const moonIllum = SunCalc.getMoonIllumination(current);
                 const phase = moonIllum.phase;
                 let phaseName = "";
@@ -109,7 +112,7 @@ function generateStaticICS() {
                 }
             }
             
-            if (document.getElementById('opt-moon-times').checked) {
+            if (document.getElementById('opt-moon-times')?.checked) {
                 const moonTimes = SunCalc.getMoonTimes(current, currentLat, currentLng);
                 if (moonTimes.rise) {
                     ics += createEvent("Moonrise", moonTimes.rise, new Date(moonTimes.rise.getTime() + 15 * 60000));
@@ -127,7 +130,9 @@ function generateStaticICS() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        btn.innerHTML = originalText;
+        if (btn) {
+            btn.innerHTML = originalText;
+        }
     }, 50);
 }
 

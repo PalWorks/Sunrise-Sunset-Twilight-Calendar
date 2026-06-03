@@ -63,11 +63,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js" integrity="sha384-Ssj6wXFm/aTdsC1FeDLrGxP3/PooxBGcOqehkmt8CbKQOcei4CDaRbreAUvdFNrq" crossorigin="anonymous" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous" defer></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+    <script src="lib/suncalc.min.js" defer></script>
+    <script src="lib/html2canvas.min.js" defer></script>
+    <script src="lib/jspdf.umd.min.js" defer></script>
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css"/>
+    <script src="lib/leaflet/leaflet.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="/icon-192.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
@@ -85,7 +85,7 @@
                     Sun Moon Calendar
                 </a>
             </h1>
-            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu(event)">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -111,8 +111,8 @@
                     <div class="meta-item" style="position: relative;">
                         <span class="meta-label">Location</span>
                         <div style="position: relative; display: flex; align-items: center;">
-                            <input type="text" id="input-location" class="meta-input" placeholder="Search city..." onkeypress="handleLocationEnter(event)" oninput="handleLocationInput(event)" autocomplete="off">
-                            <button onclick="searchLocationByText()" class="meta-search-btn" title="Search">
+                            <input type="text" id="input-location" class="meta-input" placeholder="Search city..." autocomplete="off">
+                            <button id="btn-search-location" class="meta-search-btn" title="Search">
                                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </button>
                         </div>
@@ -121,8 +121,8 @@
                     <div class="meta-item" style="position: relative;">
                         <span class="meta-label">Coordinates</span>
                         <div style="position: relative; display: flex; align-items: center;">
-                            <input type="text" id="input-coords" class="meta-input" placeholder="Lat, Lng" onkeypress="handleCoordsEnter(event)">
-                            <button onclick="searchLocationByCoords()" class="meta-search-btn" title="Search Coordinates">
+                            <input type="text" id="input-coords" class="meta-input" placeholder="Lat, Lng">
+                            <button id="btn-search-coords" class="meta-search-btn" title="Search Coordinates">
                                 <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </button>
                         </div>
@@ -144,43 +144,43 @@
                     </p>
                     <div class="options-grid">
                         <label class="option-label" id="lbl-brahma">
-                            <input type="checkbox" id="opt-brahma" checked onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-brahma" checked>
                             <span>Brahma Muhurta (Pre Sunrise)</span>
                         </label>
                         <label class="option-label" id="lbl-sunrise">
-                            <input type="checkbox" id="opt-sunrise" checked onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-sunrise" checked>
                             <span>Sunrise & Sunset Moments</span>
                         </label>
                         <label class="option-label" id="lbl-sandhya">
-                            <input type="checkbox" id="opt-sandhya" checked onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-sandhya" checked>
                             <span>Sandhya Junctions (24m)</span>
                         </label>
                         <label class="option-label" id="lbl-noon">
-                            <input type="checkbox" id="opt-noon" checked onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-noon" checked>
                             <span>Solar Noon Transit Peak</span>
                         </label>
                         <label class="option-label" id="lbl-civil">
-                            <input type="checkbox" id="opt-civil" onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-civil">
                             <span>Civil Twilight (6 deg)</span>
                         </label>
                         <label class="option-label" id="lbl-nautical">
-                            <input type="checkbox" id="opt-nautical" onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-nautical">
                             <span>Nautical Twilight (12 deg)</span>
                         </label>
                         <label class="option-label" id="lbl-astronomical">
-                            <input type="checkbox" id="opt-astronomical" onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-astronomical">
                             <span>Astronomical Twilight (18 deg)</span>
                         </label>
                         <label class="option-label" id="lbl-moon-phases">
-                            <input type="checkbox" id="opt-moon-phases" onchange="handleOptionToggle()" checked>
+                            <input type="checkbox" id="opt-moon-phases" checked>
                             <span>Moon Phases (Poornima/Amavasya)</span>
                         </label>
                         <label class="option-label" id="lbl-moon-times">
-                            <input type="checkbox" id="opt-moon-times" onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-moon-times">
                             <span>Moonrise & Moonset Moments</span>
                         </label>
                         <label class="option-label" id="lbl-moon-illumination">
-                            <input type="checkbox" id="opt-moon-illumination" onchange="handleOptionToggle()">
+                            <input type="checkbox" id="opt-moon-illumination">
                             <span>Illumination % (Daily Grid Only)</span>
                         </label>
                     </div>
@@ -198,7 +198,7 @@
                             <span class="tag tag-static">Static Calendar Events</span>
                         </div>
                         <p>Generate and save a robust one year calendar directly inside your web browser. Local and completely secure.</p>
-                        <button class="btn-action" onclick="generateStaticICS()">
+                        <button id="btn-download-ics" class="btn-action">
                             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             Download ICS
                         </button>
@@ -210,7 +210,7 @@
                             <span class="tag tag-dynamic">Dynamically Updated Events</span>
                         </div>
                         <p>Subscribe via webcal URL. Your digital devices automatically fetch daily updates reflecting active options.</p>
-                        <a href="#" class="btn-action" id="dynamic-link" onclick="subscribeDynamic(event)">
+                        <a href="#" class="btn-action" id="dynamic-link">
                             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                             Subscribe Now
                         </a>
@@ -225,7 +225,7 @@
                             </div>
                             <div style="position: relative; width: 100%;">
                                 <input type="text" id="manual-sync-url" readonly style="width: 100%; box-sizing: border-box; padding: 0.7rem 2.5rem 0.7rem 0.8rem; border: 1px solid var(--card-border); border-radius: 8px; font-size: 0.85rem; background: var(--bg-color); color: var(--text-main); font-weight: 500; outline: none; border-color: rgba(0,0,0,0.08);" onclick="this.select()">
-                                <button id="copy-sync-btn" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 6px; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: color 0.2s;" onclick="copySyncUrl()" title="Copy Link">
+                                <button id="copy-sync-btn" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 6px; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; transition: color 0.2s;" title="Copy Link">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                                 </button>
                             </div>
@@ -238,7 +238,7 @@
                             <span class="tag tag-visual">PDF / PNG</span>
                         </div>
                         <p>Preview localized monthly grids. Save instantly as a high resolution PNG or print to a perfectly scaled PDF.</p>
-                        <button class="btn-action" onclick="showVisualCalendar()">
+                        <button id="btn-show-calendar" class="btn-action">
                             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             Preview Calendar
                         </button>
@@ -275,7 +275,7 @@
     <!-- Modal Overlay for Calendar -->
     <div id="modal-overlay">
         <div class="cal-modal-frame">
-            <button class="close-modal" data-html2canvas-ignore="true" onclick="closeVisualCalendar()" aria-label="Close calendar">
+            <button id="btn-close-calendar" class="close-modal" data-html2canvas-ignore="true" aria-label="Close calendar">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
                     <line x1="1" y1="1" x2="13" y2="13"/>
                     <line x1="13" y1="1" x2="1" y2="13"/>
@@ -288,27 +288,27 @@
                     <p id="calendar-location-subtitle" style="margin: 0.25rem 0 0 0; font-size: 0.9rem; color: var(--text-muted);"></p>
                 </div>
                 <div class="cal-controls-right" data-html2canvas-ignore="true">
-                    <input type="text" id="month-picker" placeholder="YYYY-MM" onkeypress="handleDateKey(event)" onblur="jumpToTextDate()" style="font-size: 1rem; padding: 0.5rem 0.8rem; width: 120px; text-align: center; border: 1px solid var(--card-border); border-radius: 8px; background: rgba(0,0,0,0.02); color: var(--text-main); font-weight: 600;">
+                    <input type="text" id="month-picker" placeholder="YYYY-MM" style="font-size: 1rem; padding: 0.5rem 0.8rem; width: 120px; text-align: center; border: 1px solid var(--card-border); border-radius: 8px; background: rgba(0,0,0,0.02); color: var(--text-main); font-weight: 600;">
                     <div class="toggle-container">
-                        <button class="toggle-btn" id="btn-12h" onclick="setTimeFormat('12h')">12 Hr</button>
-                        <button class="toggle-btn active" id="btn-24h" onclick="setTimeFormat('24h')">24 Hr</button>
+                        <button class="toggle-btn" id="btn-12h">12 Hr</button>
+                        <button class="toggle-btn active" id="btn-24h">24 Hr</button>
                     </div>
                     <div class="nav-buttons" style="display: flex; gap: 0.5rem;">
-                        <button class="nav-btn" onclick="changeMonth(-1)">Prev</button>
-                        <button class="nav-btn" onclick="changeMonth(1)">Next</button>
+                        <button id="btn-prev-month" class="nav-btn">Prev</button>
+                        <button id="btn-next-month" class="nav-btn">Next</button>
                     </div>
                     <div class="cal-separator"></div>
                     <div class="header-export" style="display: flex; gap: 0.5rem;">
-                        <button class="export-btn" id="save-png-btn" style="display: flex; align-items: center; gap: 0.5rem;" onclick="downloadCalendarImage()">Save PNG</button>
-                        <button class="export-btn secondary" id="save-pdf-btn" style="display: flex; align-items: center; gap: 0.5rem;" onclick="downloadCalendarPDF()">Save PDF</button>
+                        <button class="export-btn" id="save-png-btn" style="display: flex; align-items: center; gap: 0.5rem;">Save PNG</button>
+                        <button class="export-btn secondary" id="save-pdf-btn" style="display: flex; align-items: center; gap: 0.5rem;">Save PDF</button>
                     </div>
                 </div>
             </div>
             
             <div class="calendar-relative-wrapper">
-                <button class="side-nav-btn prev" data-html2canvas-ignore="true" onclick="changeMonth(-1)">&#10094;</button>
+                <button id="btn-side-prev-month" class="side-nav-btn prev" data-html2canvas-ignore="true">&#10094;</button>
                 <div class="calendar-grid" id="calendar-grid"></div>
-                <button class="side-nav-btn next" data-html2canvas-ignore="true" onclick="changeMonth(1)">&#10095;</button>
+                <button id="btn-side-next-month" class="side-nav-btn next" data-html2canvas-ignore="true">&#10095;</button>
             </div>
 
             <!-- Mobile Day Detail Card -->
@@ -321,30 +321,10 @@
 
     <script src="navigation.js?v=4" defer></script>
     <script src="js/app.js?v=4"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js?v=4').then(registration => {
-                    console.log('SW registered: ', registration);
-                }).catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
-                });
-            });
-        }
-    </script>
+
     <script src="js/api.js?v=4" defer></script>
     <script src="js/calendar.js?v=4" defer></script>
     <script src="js/export.js?v=4" defer></script>
     <script src="js/map.js?v=4" defer></script>
-    <script>
-        // Set time format toggles from index UI
-        function setTimeFormat(format) {
-            use24Hour = (format === '24h');
-            document.getElementById('btn-12h').classList.toggle('active', !use24Hour);
-            document.getElementById('btn-24h').classList.toggle('active', use24Hour);
-            if (document.getElementById('modal-overlay').style.display === 'flex') {
-                renderCalendar();
-            }
-        }
-    </script>
+    <script src="js/events.js?v=4" defer></script>
 </body>

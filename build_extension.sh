@@ -10,14 +10,18 @@ rm -f sunmooncal-extension.zip
 mkdir -p temp_extension
 
 # Copy only the necessary files from frontend
-cp -r frontend/index.html temp_extension/
+cp -r frontend/popup.html temp_extension/
 cp -r frontend/manifest.json temp_extension/
 cp -r frontend/icon-192.png temp_extension/
 cp -r frontend/icon-512.png temp_extension/
 cp -r frontend/style.css temp_extension/
 cp -r frontend/js temp_extension/
-
-# Remove sw.js from the temp folder if it exists, as extensions use background.js service workers, not standard web service workers (though it's fine to leave it, it's safer to keep it clean)
+cp -r frontend/lib temp_extension/
+# Remove files and directories that are not needed by the extension popup
+rm -f temp_extension/js/map.js
+rm -rf temp_extension/lib/leaflet
+rm -f temp_extension/lib/html2canvas.min.js
+rm -f temp_extension/lib/jspdf.umd.min.js
 
 # Zip the contents
 cd temp_extension

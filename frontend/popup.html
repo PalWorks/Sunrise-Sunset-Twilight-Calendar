@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Moon Calendar Extension</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Minimal dependencies, no map, no PDF generation needed here -->
+    <script src="lib/suncalc.min.js" defer></script>
+</head>
+<body class="extension-popup">
+    <div class="popup-container">
+        <header class="popup-header">
+            <h1>
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 6px; vertical-align: text-bottom;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                SUN & MOON CALENDAR
+            </h1>
+        </header>
+
+        <div class="popup-body">
+            <div class="input-group">
+                <label>
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Enter City (e.g., London, Kyoto)
+                </label>
+                <div class="input-row" style="position: relative;">
+                    <input type="text" id="input-location" placeholder="Type City Name..." autocomplete="off">
+                    <button id="btn-search-location" title="Search">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                    <div id="location-dropdown" class="dropdown-menu" style="top: 100%; left: 0; right: 0; width: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    Latitude / Longitude (Decimal Deg.)
+                </label>
+                <div class="input-row">
+                    <input type="text" id="input-coords" placeholder="Lat, Lng">
+                    <button id="btn-search-coords" title="Search Coordinates">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="timezone-text">
+                Timezone: <span id="meta-tz">Loading...</span> <span id="meta-tz-offset"></span>
+            </div>
+
+            <details class="options-accordion">
+                <summary>OPTIONS</summary>
+                <div class="options-content">
+                    <label class="option-label" id="lbl-brahma"><input type="checkbox" id="opt-brahma" checked> <span>Brahma Muhurta (Pre Sunrise)</span></label>
+                    <label class="option-label" id="lbl-sunrise"><input type="checkbox" id="opt-sunrise" checked> <span>Sunrise & Sunset Moments</span></label>
+                    <label class="option-label" id="lbl-sandhya"><input type="checkbox" id="opt-sandhya" checked> <span>Sandhya Junctions (24m)</span></label>
+                    <label class="option-label" id="lbl-noon"><input type="checkbox" id="opt-noon" checked> <span>Solar Noon Transit Peak</span></label>
+                    <label class="option-label" id="lbl-civil"><input type="checkbox" id="opt-civil"> <span>Civil Twilight (6 deg)</span></label>
+                    <label class="option-label" id="lbl-nautical"><input type="checkbox" id="opt-nautical"> <span>Nautical Twilight (12 deg)</span></label>
+                    <label class="option-label" id="lbl-astronomical"><input type="checkbox" id="opt-astronomical"> <span>Astronomical Twilight (18 deg)</span></label>
+                    <label class="option-label" id="lbl-moon-phases"><input type="checkbox" id="opt-moon-phases" checked> <span>Moon Phases (Poornima/Amavasya)</span></label>
+                    <label class="option-label" id="lbl-moon-times"><input type="checkbox" id="opt-moon-times"> <span>Moonrise & Moonset Moments</span></label>
+                </div>
+            </details>
+
+            <div class="action-stack disabled" id="action-stack-container">
+                <button id="btn-download-ics" class="btn-primary">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    SAVE STATIC FILE
+                </button>
+                
+                <details class="dynamic-accordion">
+                    <summary class="btn-secondary">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        DYNAMIC FILE
+                    </summary>
+                    <div class="dynamic-links">
+                        <div class="calendar-btn-row" style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <a id="btn-apple-cal" href="#" target="_blank" class="link-btn" style="flex: 1; border: 1px solid rgba(0,0,0,0.2); margin-bottom: 0;">Apple Calendar</a>
+                            <a id="btn-google-cal" href="#" target="_blank" class="link-btn" style="flex: 1; border: 1px solid rgba(0,0,0,0.2); margin-bottom: 0;">Google Calendar</a>
+                        </div>
+                        <div class="copy-link-row">
+                            <input type="text" id="manual-sync-url" readonly onclick="this.select()" style="font-size: 0.85rem; padding: 0.6rem;">
+                            <button id="copy-sync-btn" title="Copy Link" style="display: flex; align-items: center; justify-content: center; padding: 0.6rem;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </details>
+
+                <a id="btn-preview-external" href="#" target="_blank" class="btn-tertiary">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 6px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    PREVIEW CALENDAR
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Logic Scripts -->
+    <script src="js/app.js?v=4"></script>
+    <script src="js/api.js?v=4" defer></script>
+    <script src="js/calendar.js?v=4" defer></script>
+    <script src="js/export.js?v=4" defer></script>
+    <script src="js/events.js?v=4" defer></script>
+</body>
+</html>
