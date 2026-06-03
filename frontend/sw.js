@@ -1,10 +1,12 @@
-const CACHE_NAME = 'sunmooncal-v4';
+const CACHE_NAME = 'sunmooncal-v5';
 const ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/js/app.js',
   '/js/export.js',
+  '/js/api.js',
+  '/js/events.js',
   '/js/calendar.js',
   '/js/navigation.js',
   '/js/suncalc.js',
