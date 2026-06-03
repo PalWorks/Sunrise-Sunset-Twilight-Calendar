@@ -139,7 +139,7 @@ window.setTimeFormat = function(format) {
 // Service Worker Registration
 if ('serviceWorker' in navigator && !window.chrome?.extension) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js?v=4').then(registration => {
+        navigator.serviceWorker.register('/sw.js?v=5').then(registration => {
             console.log('SW registered: ', registration);
         }).catch(registrationError => {
             console.log('SW registration failed: ', registrationError);
