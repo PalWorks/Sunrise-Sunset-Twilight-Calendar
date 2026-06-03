@@ -93,10 +93,11 @@ function initDefaults() {
     }
     
     // Add event listeners for dynamic url updates when options change
-    document.querySelectorAll('.opt-group input').forEach(el => {
+    document.querySelectorAll('.opt-group input, .options-content input').forEach(el => {
         el.addEventListener('change', () => {
             updateDynamicUrls();
-            if (document.getElementById('modal-overlay').style.display === 'flex') {
+            const modalOverlay = document.getElementById('modal-overlay');
+            if (modalOverlay && modalOverlay.style.display === 'flex') {
                 renderCalendar();
             }
         });

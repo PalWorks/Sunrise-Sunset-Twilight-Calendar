@@ -216,6 +216,9 @@ async function finalizeLocationUpdate(lat, lng, locName) {
     currentLat = lat;
     currentLng = lng;
     currentLocationName = locName;
+    if (!currentCity && locName) {
+        currentCity = locName.split(',')[0].trim();
+    }
     
     localStorage.setItem('savedLat', lat);
     localStorage.setItem('savedLng', lng);
